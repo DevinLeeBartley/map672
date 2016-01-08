@@ -1,2 +1,2 @@
-# map672
-Modules for NMP MAP672 course.
+# Devin Bartley's Map 672 Module
+Devin is pumped for this course!
