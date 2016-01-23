@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset=utf-8 />
+    <title>MAP672 Module 2 Template</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #3d3d3d;
+            font-family: inherit;
+            color: #d1d1d1;
+        }
+/*        Changes the font size and left margin width for heading 1*/
+        h1  {
+            font-size: 1.6em;
+            margin-left: 25px;
+        }
+/*        Changes the font size and left margin width for heading 2*/
+        h2  {
+            font-size: 1.4em;
+            margin-left: 40px;
+        }
+        p   {
+            font-size: 1em;
+            margin: 40px 50px;
+            max-width: 800px;
+        }
+        a   {
+            color: #669999;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: aqua
+        }
+        img {
+            margin-left: 25px;
+        }
+        li {
+            margin-left: 50px;
+        }
+/*        Changes the width, height background, and margin size for the unique element "box"*/
+        #box {
+    width: 200px;
+    height: 200px;
+    background: #3e6b93;
+    margin: 25px;
+}
+/*        Changes the width, height, background color, border radius curve, display type, and margin of all the elements with the class attribute of "circle"*/
+        .circle {
+    width: 100px;
+    height: 100px;
+    background: #bf6864;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 25px;
+}
+        ]
+    </style>
+</head>
+
+<body>
+<!-- Structured HTML goes within the body tags -->
+    
+    <h1>World Map</h1>
+    <h2>A Digital Representation of the Surface of the Earth</h2>
+    <p>This simplistic representational image of the earth demonstrates that the convention of the cartographic gaze has become highly engrained in our culture's phsyche. What is shown here instantly triggers the perception of an understanding in our minds about how the world's continents, oceans, and landmasses are laid out. What we should remember is that this often taken for granted representation of the globe hasn't been the standard for all human cultures and is a relatively new way of visualizing the planet we live on.</p>
+    <div id="map"><img src="images/world2.png" alt="world map"></div>
+<!--    This paragraph with a hyperlink (changed to veggie ipsum from Wikipedia's link by me), contains example text in the lorem ipsum format-->
+    <p>paragraph with link: <a href="http://veggieipsum.com/">Veggie ipsum</a> Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+    <ul>
+        <li>un-ordered list item 1</li>
+        <li>list item 2</li>
+        <li>list item 3</li>
+        <li><a href="http://leafletjs.com/">Click Here For Leaflet</a></li>
+        <li><a href="https://www.mapbox.com/">Click Here For Mapbox</a></li>
+        <li><a href="https://cartodb.com/">Click Here For CartoDB</a></li>
+        <li><a href="https://d3js.org/">Click Here For Data Driven Documents</a></li>
+    </ul>
+<!--    This division element creates a new unique element with the identifier of "box"-->
+    <div id="box"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+
+    <script>
+        document.querySelector('h1').innerHTML = 'web mapping is sweet!';
+        var box = document.getElementById('box');
+        box.style.background = '#4d4a9f';
+        var elements = document.getElementsByClassName('circle');
+
+        for(var i=0; i <= elements.length-1;i++){
+            elements[i].style['border-radius'] = '20%';  
+        }
+//        JS code that changes the width of the box to 400 pixels when the user clicks on it.
+        box.addEventListener('click', function() {
+    this.style.width = '400px';   
+});
+        var newListItem = document.createElement('li');
+newListItem.innerHTML = "list item 4";
+document.querySelector('ul').appendChild(newListItem);
+        console.log("hello map");
+    </script>
+</body>
+
+</html>
