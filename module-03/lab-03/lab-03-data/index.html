@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Lab 03 Starter Template</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+        /* Additional style rules go here! */
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Map Title</h1>
+        <h2>Map Subtitle</h2>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+        <p>Map authored by YOUR NAME</p>
+        <p>Additional information about the data and map goes here.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        </p>
+    </footer>
+
+    <script>
+        var map;
+        var targetDiv = 'map';
+
+        var options = {
+            center: [38.0489,-84.5025],
+            zoom: 8
+        }
+        map = L.map(targetDiv, options);
+        
+        var tiles = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            subdomains: 'abcd',
+            minZoom: 1,
+            maxZoom: 16,
+            ext: 'png'
+        });
+        map.addLayer(tiles);
+        
+        // BEGIN WRITING CODE FOR LAB 03 HERE
+        
+       
+        
+        // END WRITING CODE FOR LAB 03 HERE
+        
+        // CITY1 MARKER CODE HERE
+        var city1Popup = "<b>"+city1Name+"</b><br>"
+                        +"<b>population</b>: "+city1Pop;
+        
+        if(city1Capital == true) {
+            city1Popup += "<br>Capital of the Commonwealth of Kentucky";   
+        }
+        
+        L.marker([city1Lat,city1Lon]).addTo(map)
+            .bindPopup(city1Popup);
+        
+//         CITY2 MARKER CODE HERE
+//        var city2Popup = "<b>"+city2Name+"</b><br>"
+//                        +"<b>population</b>: "+city2Pop;
+//        
+//        if(city2Capital == true) {
+//            city2Popup += "<br>Capital of the Commonwealth of Kentucky";   
+//        }
+//        
+//        L.marker([city2Lat,city2Lon]).addTo(map)
+//            .bindPopup(city2Popup);
+        
+//         CITY3 MARKER CODE HERE
+//        var city3Popup = "<b>"+city3Name+"</b><br>"
+//                        +"<b>population</b>: "+city3Pop;
+//        
+//        if(city3Capital == true) {
+//            city3Popup += "<br>Capital of the Commonwealth of Kentucky";   
+//        }
+//        
+//        L.marker([city3Lat,city3Lon]).addTo(map)
+//            .bindPopup(city3Popup);
+          
+    </script>
+    
+</body>
+
+</html>
