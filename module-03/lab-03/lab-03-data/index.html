@@ -50,17 +50,17 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>Two Important Kentucky Cities</h1>
+        <h2>And the Tiny City Between Them</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        <p>Map authored by Devin Bartley.</p>
+        <p>The town of Midway is of equal distance between Frankfort, the Capital of Kentucky and the city of Lexington. It is also located at an equal distance between Varsailles and Georgetown. Source: <a href="https://en.wikipedia.org/wiki/Midway,_Kentucky"> wikipedia</a>.
         </p>
+        <p>This map was created to fulfill the requirements of Lab 03 of the NewMaps+ Map 672 Course on January 24, 2016 using the provided starter template. City locations and populations were sources from Google.</p>
     </footer>
 
     <script>
@@ -83,8 +83,38 @@
         map.addLayer(tiles);
         
         // BEGIN WRITING CODE FOR LAB 03 HERE
+//        Define variables for Lexington
+        var city1Name = "Lexington"
+        var city1Lat = 38.0297
+        var city1Lon = -84.4947
+        var city1Pop = 308428
+        var city1Capital = false
         
-       
+//        Define variables for Frankfort
+        var city2Name = "Frankfort"
+        var city2Lat = 38.1970
+        var city2Lon = -84.8630
+        var city2Pop = 27453
+        var city2Capital = true
+        
+//        Define variables for Midway
+        
+        var city3Name = "Midway"
+        var city3Lat = 38.1506
+        var city3Lon = -84.6831
+        var city3Pop = 1657
+        var city3Capital = false
+        
+//        Create a variable with the population of all 3 variables
+        var totalPop = city1Pop + city2Pop + city3Pop;
+        console.log("The total population of these cities is: " + totalPop);
+        
+        var averagePop = totalPop / 3;
+        console.log("The average population of these cities is: " + averagePop);
+        
+        var cities = ["Lexington", "Frankfort", "Midway"];
+        console.log(cities[2]);
+        
         
         // END WRITING CODE FOR LAB 03 HERE
         
@@ -100,26 +130,26 @@
             .bindPopup(city1Popup);
         
 //         CITY2 MARKER CODE HERE
-//        var city2Popup = "<b>"+city2Name+"</b><br>"
-//                        +"<b>population</b>: "+city2Pop;
-//        
-//        if(city2Capital == true) {
-//            city2Popup += "<br>Capital of the Commonwealth of Kentucky";   
-//        }
-//        
-//        L.marker([city2Lat,city2Lon]).addTo(map)
-//            .bindPopup(city2Popup);
+        var city2Popup = "<b>"+city2Name+"</b><br>"
+                        +"<b>population</b>: "+city2Pop;
+        
+        if(city2Capital == true) {
+            city2Popup += "<br>Capital of the Commonwealth of Kentucky";   
+        }
+        
+        L.marker([city2Lat,city2Lon]).addTo(map)
+            .bindPopup(city2Popup);
         
 //         CITY3 MARKER CODE HERE
-//        var city3Popup = "<b>"+city3Name+"</b><br>"
-//                        +"<b>population</b>: "+city3Pop;
-//        
-//        if(city3Capital == true) {
-//            city3Popup += "<br>Capital of the Commonwealth of Kentucky";   
-//        }
-//        
-//        L.marker([city3Lat,city3Lon]).addTo(map)
-//            .bindPopup(city3Popup);
+        var city3Popup = "<b>"+city3Name+"</b><br>"
+                        +"<b>population</b>: "+city3Pop;
+        
+        if(city3Capital == true) {
+            city3Popup += "<br>Capital of the Commonwealth of Kentucky";   
+        }
+        
+        L.marker([city3Lat,city3Lon]).addTo(map)
+            .bindPopup(city3Popup);
           
     </script>
     
