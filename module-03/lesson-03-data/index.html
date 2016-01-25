@@ -113,6 +113,42 @@
     ];
     console.log(twoDArray);
     
+//    JS uses zero-based numbering. The following console log command calls up the first value in the array since it is the zeroth value. 
+//    If we use a number not yet defined JS wont create and error, it will just return "undefined" 
+    var cities = ["Frankfort", "Louisville", "Lexington"];
+    console.log(cities[0]);
+    console.log(cities[1]);
+    console.log(cities[2]);
+    console.log(cities[3]);
+    
+//    To call up variables in nested arrays you have to enter the index of each subsequent array to return a specific value
+    var twoDArray = [
+        ["Frankfort", "Louisville", "Lexington"],
+        [25527, 756832, 308428],
+        ["Frankfort", 756832, false]
+    ];
+    console.log(twoDArray[0][2]);
+    console.log(twoDArray[2][1]);
+    
+//    you can change a value in an array using the third line below by defining the element number first
+    var years = [2010, 2011, 2022, 2013, 2014];
+    console.log(years);
+    years[2] = 2012;
+    console.log(years);
+    
+//    Below I am adding values to an array.
+    var counties = [];
+    console.log(counties);
+    counties[0] = "Adair";
+    console.log(counties);
+    counties[1] =  "Allen";
+    counties[5] = "Anderson";
+    console.log(counties);
+    
+    
+    
+    console.log(counties);
+    
     
     
 </script>
