@@ -50,6 +50,71 @@
     console.log(5 == "5");
 //    The following make sure there is type equality
     console.log(5 === "5");
+//    The following are logical operators for AND and OR and return boolean values
+    console.log(1 < 2 && 2 < 3);
+    console.log(1 < 2 && 2 > 3);
+    console.log(1 < 2 || 2 > 3);
+//    The following is a NOT operator and will incur the opposite boolean value. It will aso show if a value is NOT equal to another value
+    console.log(!true);
+    console.log(1 != 2);
+    console.log(1 != 1);
+    
+    // Declare a variable, define it and declare it in the console log
+    var city;
+    city = "Lexington"
+    console.log(city);
+    
+    var city = "Frankfort";
+    var state = "Kentucky";
+    console.log(city, ', ',state);
+    
+//    values of expressions can be given variable names
+    var total1 = 15 + 20;
+    console.log(total1);
+    var value1 = 30;
+    var value2 = 60;
+    var total2 = value1 + value2;
+    console.log(total2);
+    var average = total1/total2;
+    console.log(average);
+    
+//    variables can be updated or reassigned
+    var year = 2015;
+    console.log(year);
+    var year = year + 1;
+    console.log(year);
+    
+    
+    var cityPop = 308428;
+    console.log("The population of lexington is ", cityPop)
+    
+//    The following creates a blank array
+    var cities = [];
+    console.log(cities);
+    
+//    Populating the array with a list of items
+    
+    var cities = ["Frankfort", "Louisville", "Lexington"];
+    console.log(cities);
+    
+    var populations = [25527, 756832, 308428];
+    console.log(populations);
+    
+//    An array can be a list of different variable types
+    
+    var populations = ["Frankfort", 756832, false];
+    console.log(populations);
+    
+//    You can make an array contain another array
+    var twoDArray = [
+        ["Frankfort", "Louisville", "Lexington"],
+        [25527, 756832, 308428],
+        ["Frankfort", 756832, false]
+    ];
+    console.log(twoDArray);
+    
+    
+    
 </script>
     
 </body>
