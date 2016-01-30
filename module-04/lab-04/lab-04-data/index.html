@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Lab 04 Starter Template</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+        /* Additional style rules go here! */
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Map Title</h1>
+        <h2>Map Subtitle</h2>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+        <p>Map authored by YOUR NAME</p>
+        <p>Additional information about the data and map goes here.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        </p>
+    </footer>
+
+    <script>
+        var map;
+        var targetDiv = 'map';
+
+        var options = {
+            center: [0, 0],
+            zoom: 2
+        }
+        map = L.map(targetDiv, options);
+        var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+});
+        map.addLayer(tiles);
+        
+        // begin writing/editing Lab 04 code here
+        
+
+//        for(/* add code here */) {
+//            
+//            var popup = "<b>"+/* add code here */+"</b><br>"
+//                            +"<b>population</b>: "+/* add code here */;
+//
+//            if(/* add code here */) {
+//               
+//                popup += "<br>Is the capital city."; 
+//                
+//            } 
+//            
+//            L.marker(/* add code here */).addTo(map)
+//                .bindPopup(popup);
+//        }
+        
+        // end writing/editing Lab 04 code here
+        
+          
+    </script>
+    
+</body>
