@@ -16,8 +16,73 @@
 
 
 <script>
-/* JavaScript code goes here! */
 
+    var cities = ["Frankfort", "Louisville", "Lexington"];
+    console.log(cities.length);  // output will be 3
+    var years = [2011, 2012, 2013, 2014, 2015, 2016];
+    var yearsNum = years.length;
+    console.log(yearsNum); // output will be 6
+//  The first statement in the for loop is executed before the loop starts, 
+//    the second statment defines the condition for the loop to run,
+//        and the third is executed each time after the loop is executed.
+    console.log("before the for loop");
+    for (var i = 0; i < 4; i++) {
+        console.log(i); //outputs numbers from 0 to 4
+    }
+    console.log("after the for loop")
+    
+//    The third statment in this loop is the same as number++
+    for (var number = 0; number < 5; number = number + 1) {
+  console.log(number); // outputs numbers from 0 to 4
+}
+    
+    var cities = ["Frankfort", "Louisville", "Lexington"];
+for (var i = 0; i < cities.length; i++) {
+    console.log(i); // output the current value of i
+    console.log(cities[i]); // use i to access an index of the Array
+}
+//    The following will create an array from 1 - 10
+    var newArray = []; // define an empty Array
+for(var i = 0; i < 10; i++) {
+    newArray[i] = i + 1;
+}
+console.log(newArray); // output will be [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+//    The following will run the outer loop once, then run the inner loop 5 times, and the repeat the process 4 more times.
+    for (var i = 0; i < 5; i++) {
+  console.log('outer loop: ' + i);
+  for (var j = 0; j < 5; j++) {
+    console.log('inner loop: '+ j);
+  }
+}
+    
+//    The output below will be 60
+    var sum = 0;
+for (var i = 0; i < 5; i++) {
+  for (var j = 0; j < 5; j++) {
+    sum += j;
+  }
+  sum += i;
+}
+console.log(sum);
+    
+//    The while loop below works like the for loop but it is more usefull when the value in the expression is unknown.
+    var cities = ["Frankfort", "Louisville", "Lexington"];
+var i = 0;
+while (i < cities.length){  
+    console.log(i);
+    console.log(cities[i]);
+    i++     
+}
+
+//    Below I have written out the while loop above in a for loop format as a challenge to myself
+       var cities = ["Frankfort", "Louisville", "Lexington"];
+var i = 0;
+    for(var i = 0; i < cities.length; i++) {
+        console.log(i);
+        console.log(cities[i])
+    }
+    
+    
 </script>
     
 </body>
