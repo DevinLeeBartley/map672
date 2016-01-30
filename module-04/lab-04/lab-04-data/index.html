@@ -58,7 +58,7 @@
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
+        <p>Map authored by Devin Bartley</p>
         <p>Additional information about the data and map goes here.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
         </p>
@@ -67,10 +67,10 @@
     <script>
         var map;
         var targetDiv = 'map';
-
+//Set to zoom in to Colorado
         var options = {
-            center: [0, 0],
-            zoom: 2
+            center: [39, -105.5],
+            zoom: 7
         }
         map = L.map(targetDiv, options);
         var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
@@ -80,21 +80,31 @@
         
         // begin writing/editing Lab 04 code here
         
+//        Define array with 3 Colorado cities 
+        var cities = ["Denver", "Pueblo", "Grand Junction"];
+        
+//        Create 2 dimensional array containing coordinates for colorado cities above
+        var cityCoords = [[39.7392, -104.9903], [38.2669, -104.6203], [39.0667, -108.5667]];
+        
+        var cityPop = [649495, 108249, 59778];
+        
+        var cityCapital = [true, false, false]
 
-//        for(/* add code here */) {
-//            
-//            var popup = "<b>"+/* add code here */+"</b><br>"
-//                            +"<b>population</b>: "+/* add code here */;
-//
-//            if(/* add code here */) {
-//               
-//                popup += "<br>Is the capital city."; 
-//                
-//            } 
-//            
-//            L.marker(/* add code here */).addTo(map)
-//                .bindPopup(popup);
-//        }
+        for(var i = 0; i <= cities.length; i++) {
+            
+            var popup = "<b>"+cities[i]+"</b><br>"
+                            +"<b>population</b>: "+cityPop[i];
+
+            if(cityCapital[i] === true) {
+               
+                popup += "<br>Is the capital city."; 
+                
+            } 
+            
+            L.marker(cityCoords[i]).addTo(map)
+                .bindPopup(popup);
+            
+        }
         
         // end writing/editing Lab 04 code here
         
