@@ -47,21 +47,20 @@
         }
 /*        Changes the width, height background, and margin size for the unique element "box"*/
         #box {
-    width: 200px;
-    height: 200px;
-    background: #3e6b93;
-    margin: 25px;
-}
-/*        Changes the width, height, background color, border radius curve, display type, and margin of all the elements with the class attribute of "circle"*/
+            width: 200px;
+            height: 200px;
+            background: #3e6b93;
+            margin: 25px;
+        }
+        /*        Changes the width, height, background color, border radius curve, display type, and margin of all the elements with the class attribute of "circle"*/
         .circle {
-    width: 100px;
-    height: 100px;
-    background: #bf6864;
-    border-radius: 50%;
-    display: inline-block;
-    margin: 0 25px;
-}
-        ]
+            width: 100px;
+            height: 100px;
+            background: #bf6864;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 25px;
+        }
     </style>
 </head>
 
@@ -100,11 +99,13 @@
         }
 //        JS code that changes the width of the box to 400 pixels when the user clicks on it.
         box.addEventListener('click', function() {
-    this.style.width = '400px';   
-});
+            this.style.width = '400px';   
+        });
+        
         var newListItem = document.createElement('li');
-newListItem.innerHTML = "list item 4";
-document.querySelector('ul').appendChild(newListItem);
+        newListItem.innerHTML = "list item 4";
+        document.querySelector('ul').appendChild(newListItem);
+        
         console.log("hello map");
     </script>
 </body>
