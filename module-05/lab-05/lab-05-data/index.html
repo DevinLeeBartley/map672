@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Lab 05 Starter Template</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+        /* Additional style rules go here! */
+        
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Map Title</h1>
+        <h2>Map Subtitle</h2>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+        <p>Map authored by YOUR NAME</p>
+        <p>Additional information about the data and map goes here.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        </p>
+    </footer>
+
+<script>
+    
+    var options = {
+        center: [38.0489,-84.5025],
+        zoom: 8
+    }
+    
+    var map = L.map('map', options);
+    
+    var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+    });
+    map.addLayer(tiles);
+
+    // begin writing/editing Lab 05 code here
+
+    var lexArea = Number(prompt("Enter data", "Enter the area of Lexington in square miles"));
+    // create a second variable to collect a second city's area here
+    // create a third variable to collect a third city's area here
+
+    prepareData(lexArea); // modify this function call to pass all three variables
+
+    function prepareData(lexArea) { /* modify function to include 2 more parameters */
+
+        var cities = ["Lexington"]; /* add 2nd and 3rd city names */
+        var cityCoords = [
+            [38.0297, -84.4947] 
+            /* include 2nd city lat/lon here */
+            /* include 3rd city lat/lon here */
+
+        ];
+        var cityPops = [308428]; /* include 2nd and 3rd city pops here */
+
+        var cityAreas = [lexArea]; /* include 2nd and 3rd city areas */
+
+       // call the mapCities function, passing the 4 arrays created above as arguments
+
+    }
+
+    function mapCities(cities, cityCoords) { /* include 2 more parameters here */
+
+        var units = prompt('Units for calculating density', 'Enter "miles" or "km"');
+
+        for(var i = 0; i < cities.length; i++) {
+
+            /*var density =  call a function named calcPopDensity here, passing
+                             the city population, area, and units as arguments, and assign
+                             return value to the "density" variable */
+
+            var popup = "<b>"+cities[i]+"</b><br>"
+                            //+"<b>Density</b>: "+density.toLocaleString()+" people per sq " + units;
+
+            L.marker(cityCoords[i]).addTo(map)
+                .bindPopup(popup);
+
+        }
+    }
+
+    // write a function named calcPopDensity which accepts three arguments, the  
+    // population, the area of a single city, and the units ('miles' or 'km') entered by
+    // the user above. The function should calculate the density of the city with these two 
+    // values and return the result to where the function was called.
+
+
+    // end writing/editing Lab 05 code here
+
+</script>
+    
+</body>
+
+</html>
