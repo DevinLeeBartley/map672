@@ -15,7 +15,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: whitesmoke;
+            background: ivory;
             font-family: Lato, sans-serif;
             color: #0D0000;
         }
@@ -60,7 +60,7 @@
     <footer>
         <p>Map created by Devin Bartley</p>
         <p>Map Source: <b>Leaflet</b> Data Source: <b>Google</b></p>
-        <p>This map shows the location of 3 geographically distinct urban centres in the State of Colorado. While the majority of the state's population lives in the Front Range Metropolitan area, (where the state capitol of Denver is located), Grand Junction and Pueblo are important urban centres for their geographic regions.
+        <p>This map shows the location of 3 geographically distinct urban centres in the State of Colorado. While the majority of the state's population lives in the Front Range Metropolitan area, (where the state capital city of Denver is located), Grand Junction and Pueblo are important urban centres for their geographic regions.
         </p>
     </footer>
 
@@ -79,7 +79,8 @@
         map.addLayer(tiles);
         
         // begin writing/editing Lab 04 code here
-        
+
+
 //        Define array with 3 Colorado cities 
         var cities = ["Denver", "Pueblo", "Grand Junction"];
         
@@ -88,12 +89,12 @@
         
         var cityPop = [649495, 108249, 59778];
         
-        var cityCapital = [true, false, false]
+        var cityCapital = [true, false, false];
 
         for(var i = 0; i <= cities.length; i++) {
             
             var popup = "<b>"+cities[i]+"</b><br>"
-                            +"<b>population</b>: "+cityPop[i];
+                            +"<b>Population</b>: "+cityPop[i].toLocaleString();
 
             if(cityCapital[i] === true) {
                
