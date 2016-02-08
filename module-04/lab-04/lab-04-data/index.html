@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Lab 04 Starter Template</title>
+    <title>Three Cities in Colorado</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -44,7 +44,7 @@
             font-size: 1em;
             color: #001323;
         }
-        /* Additional style rules go here! */
+
 
     </style>
 </head>
@@ -67,9 +67,9 @@
     <script>
         var map;
         var targetDiv = 'map';
-//Set to zoom in to Colorado
+
         var options = {
-            center: [39, -105.5],
+            center: [39, -105.5], // Set to zoom in to Colorado
             zoom: 7
         }
         map = L.map(targetDiv, options);
@@ -77,15 +77,17 @@
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
 });
         map.addLayer(tiles);
-        
-        // begin writing/editing Lab 04 code here
 
 
 //        Define array with 3 Colorado cities 
         var cities = ["Denver", "Pueblo", "Grand Junction"];
         
 //        Create 2 dimensional array containing coordinates for colorado cities above
-        var cityCoords = [[39.7392, -104.9903], [38.2669, -104.6203], [39.0667, -108.5667]];
+        var cityCoords = [
+            [39.7392, -104.9903], // a little easier to read this way
+            [38.2669, -104.6203], 
+            [39.0667, -108.5667]
+        ];
         
         var cityPop = [649495, 108249, 59778];
         
@@ -105,9 +107,7 @@
             L.marker(cityCoords[i]).addTo(map)
                 .bindPopup(popup);
             
-        }
-        
-        // end writing/editing Lab 04 code here
+        }        
         
           
     </script>
