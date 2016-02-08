@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Lab 03 Starter Template</title>
+    <title>Two Important Kentucky Cities</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -69,7 +69,7 @@
 
         var options = {
             center: [38.0489,-84.5025],
-            zoom: 8
+            zoom: 10
         }
         map = L.map(targetDiv, options);
         
@@ -82,28 +82,28 @@
         });
         map.addLayer(tiles);
         
-        // BEGIN WRITING CODE FOR LAB 03 HERE
+
 //        Define variables for Lexington
-        var city1Name = "Lexington"
-        var city1Lat = 38.0297
-        var city1Lon = -84.4947
-        var city1Pop = 308428
-        var city1Capital = false
+        var city1Name = "Lexington";
+        var city1Lat = 38.0297;
+        var city1Lon = -84.4947;
+        var city1Pop = 308428;
+        var city1Capital = false;
         
 //        Define variables for Frankfort
-        var city2Name = "Frankfort"
-        var city2Lat = 38.1970
-        var city2Lon = -84.8630
-        var city2Pop = 27453
-        var city2Capital = true
+        var city2Name = "Frankfort";
+        var city2Lat = 38.1970;
+        var city2Lon = -84.8630;
+        var city2Pop = 27453;
+        var city2Capital = true;
         
 //        Define variables for Midway
         
-        var city3Name = "Midway"
-        var city3Lat = 38.1506
-        var city3Lon = -84.6831
-        var city3Pop = 1657
-        var city3Capital = false
+        var city3Name = "Midway";
+        var city3Lat = 38.1506;
+        var city3Lon = -84.6831;
+        var city3Pop = 1657;
+        var city3Capital = false;
         
 //        Create a variable with the population of all 3 variables
         var totalPop = city1Pop + city2Pop + city3Pop;
@@ -116,11 +116,9 @@
         console.log(cities[2]);
         
         
-        // END WRITING CODE FOR LAB 03 HERE
-        
         // CITY1 MARKER CODE HERE
         var city1Popup = "<b>"+city1Name+"</b><br>"
-                        +"<b>population</b>: "+city1Pop;
+                        +"<b>population</b>: "+city1Pop.toLocaleString();
         
         if(city1Capital == true) {
             city1Popup += "<br>Capital of the Commonwealth of Kentucky";   
@@ -131,7 +129,7 @@
         
 //         CITY2 MARKER CODE HERE
         var city2Popup = "<b>"+city2Name+"</b><br>"
-                        +"<b>population</b>: "+city2Pop;
+                        +"<b>population</b>: "+city2Pop.toLocaleString();
         
         if(city2Capital == true) {
             city2Popup += "<br>Capital of the Commonwealth of Kentucky";   
@@ -142,7 +140,7 @@
         
 //         CITY3 MARKER CODE HERE
         var city3Popup = "<b>"+city3Name+"</b><br>"
-                        +"<b>population</b>: "+city3Pop;
+                        +"<b>population</b>: "+city3Pop.toLocaleString();
         
         if(city3Capital == true) {
             city3Popup += "<br>Capital of the Commonwealth of Kentucky";   
