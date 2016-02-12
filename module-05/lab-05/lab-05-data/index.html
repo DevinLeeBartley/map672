@@ -84,29 +84,29 @@
     // begin writing/editing Lab 05 code here
 
     var lexArea = Number(prompt("Enter data", "Enter the area of Lexington in square miles"));
-    // create a second variable to collect a second city's area here
-    // create a third variable to collect a third city's area here
+    var frankArea = Number(prompt("Enter data", "Enter the area of Frankfort in square miles")); // create a second variable to collect a second city's area here
+    var louisArea = Number(prompt("Enter data", "Enter the area of Louisville in square miles")); // create a third variable to collect a third city's area here
+    
 
-    prepareData(lexArea); // modify this function call to pass all three variables
+    prepareData(lexArea, frankArea, louisArea); // modify this function call to pass all three variables
 
-    function prepareData(lexArea) { /* modify function to include 2 more parameters */
+    function prepareData(lexArea, frankArea, louisArea) { /* modify function to include 2 more parameters */
 
-        var cities = ["Lexington"]; /* add 2nd and 3rd city names */
+        var cities = ["Lexington", "Frankfort", "Louisville"]; /* add 2nd and 3rd city names */
         var cityCoords = [
-            [38.0297, -84.4947] 
-            /* include 2nd city lat/lon here */
-            /* include 3rd city lat/lon here */
-
+            [38.0297, -84.4947],
+            [38.1970, -84.8630],
+            [38.2500, -85.7667]
         ];
-        var cityPops = [308428]; /* include 2nd and 3rd city pops here */
+        var cityPops = [308428, 27453, 253128]; /* include 2nd and 3rd city pops here */
 
-        var cityAreas = [lexArea]; /* include 2nd and 3rd city areas */
+        var cityAreas = [lexArea, frankArea, louisArea]; /* include 2nd and 3rd city areas */
 
-       // call the mapCities function, passing the 4 arrays created above as arguments
-
+// call the mapCities function, passing the 4 arrays created above as arguments
+        mapCities();
     }
 
-    function mapCities(cities, cityCoords) { /* include 2 more parameters here */
+    function mapCities(cities, cityCoords, cityPops, cityAreas) { /* include 2 more parameters here */
 
         var units = prompt('Units for calculating density', 'Enter "miles" or "km"');
 
@@ -115,7 +115,6 @@
             /*var density =  call a function named calcPopDensity here, passing
                              the city population, area, and units as arguments, and assign
                              return value to the "density" variable */
-
             var popup = "<b>"+cities[i]+"</b><br>"
                             //+"<b>Density</b>: "+density.toLocaleString()+" people per sq " + units;
 
