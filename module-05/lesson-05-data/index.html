@@ -15,15 +15,155 @@
 
 //Create a basic function. Note you will need to call this for it to print out to the console log.
     
+//    Note that this is actually a function declaration and the function can be called before it has been declared
+    
 function helloMap() {
     console.log("Hello Map");
 }
+
+//    Below is a function expression, which is exactly the same as the declaration above, but you must call it after the function. Note that the function expression assigns the function a variable.
+
+var helloMap = function() {
+    console.log("Hello Map");
+};
+  
+helloMap()
 
 //Call the function
 
 helloMap();
 helloMap();
 helloMap();
+    
+//    When a function is nested within another function, the expression approach must be used. This avoids issues in web-browsers that use the "Strict" mode.
+function outerFunction(message) {
+    console.log(message);
+    var innerFunction = function(message)   {
+        console.log(message);
+    };
+    innerFunction("I'm inside!");
+}
+
+outerFunction("I'm outside!");
+
+//    The following uses an argument within the function.
+function saySomething(message)   {
+    console.log(message);
+}
+    
+saySomething("Hello Map");
+saySomething("Please enter an address you'd like to search for.");
+    
+//    Below I am passing a variable in as the argument. Notice that message and firstMessage refer to the same value.
+function saySomething(message)   {
+    console.log(message);
+}
+
+var firstMessage = "Hello Map";
+saySomething(firstMessage);
+
+var secondMessage = "Please enter the address you'd like to search for."
+saySomething(secondMessage);
+    
+    
+    
+//    The script below would be the same as the script above.
+function saySomething(message) {
+    console.log(message);
+}
+
+var message = "Hello Map";
+saySomething(message);
+
+message = "Please enter the address you'd like to search for."
+saySomething(message);
+
+//    You can pass multiple arguments to a function
+    
+function calcAreaRect(width,height) {
+    var area = width * height;
+    console.log(area);
+}
+
+calcAreaRect(40,30);
+    
+//    You can also pass arguments to a function as variables
+    
+function calcAreaRect(width,height) {
+    var area = width * height;
+    console.log(area);
+}
+    
+var width = 40;
+var height = 30;
+calcAreaRect(width,height);
+    
+//    you dont have to keep the variables named the same as parameters, but the order does matter.
+    function calcAreaRect(width,height){
+    var area = width * height;
+    console.log(area);
+}
+
+var peanutButter = 40;
+var jelly = 30
+calcAreaRect(peanutButter,jelly);
+    
+    
+//    Below we are returning the value of the area into the variable calculatedArea this will store the output of the funtion into that variable.
+function calcAreaRect(width,height) {
+    var area = width * height;
+    return area;
+}
+
+//    Note that statments within the body of a function below the return statement will not be executed.
+var calculatedArea = calcAreaRect(40,30);
+    console.log(calculatedArea);
+    
+    function sayThings() {
+
+    console.log("thing 1"); // will output to console
+    console.log("thing 2"); // will output to console
+    return;                  // returns an `undefined` value
+    console.log("thing 3"); // will NOT output to console
+}
+
+sayThings(); 
+    
+//note that a return statement can only return a single element, so you have to put the value in an array and then return that array. 
+    
+function getMultiValues() {
+    var value124 = 5;
+    var value22 = "iguana";
+    return[value124, value22];
+//    return value124;  // if you were to do this it would not return the next value, so you must put in an array like the line above.
+//    return value22;
+}
+
+
+var values = getMultiValues();
+console.log(values[0]);
+console.log(values[1]);
+console.log(values);
+    
+//Below is an example showing that functions establish local scope and that the body only exists within that functions scope. This is called 'code encapsulation'.
+function sayHello(){
+    var greeting = "Hi, I'm a web mapper."
+    console.log(greeting);
+}
+
+sayHello();
+//console.log(greeting);  // gives an error because this command is not inside that function that declares greeting
+
+
+//for example, the two greeting variables below are different becauase they are in different scopes aka namespaces
+function sayHello() {
+    var greeting = "Hi, I'm a web mapper."; // this is defined in the local scope
+    console.log(greeting);
+}
+    
+sayHello();
+var greeting = "Howdy, I'm a cartographer"; // this is defined in the global scope.
+console.log(greeting);
     
 </script>
     
