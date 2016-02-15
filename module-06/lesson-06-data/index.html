@@ -13,7 +13,215 @@
 <script>
 /* JavaScript code goes here! */
 
-
+    var myObject = {};  // declare and define an empty object
+console.log(myObject); 
+    
+//    Below I am declaring the properties and values associated with this object
+//    Also nested in this object is a second object call toolkit that has properties and values
+    
+    var iguana = {
+        questForWorldDomination: true,
+        name: "Jack",
+        weight: 4.2,
+        age: 8,
+        eyes: "dreamy",
+        toolkit: {
+            conquestFlag: "red",
+            surrenderFlag: "white",
+            food: true,
+            music: "Anthrax",
+            coolSunGlasses: 8
+        }
+    }
+    
+    console.log(iguana);
+    
+//    Using dot notation allows you to access the property values 
+    console.log(iguana.name);
+    console.log(iguana.weight);
+    
+//    You can drill down to the nested object by using sucessive dot notations
+    console.log(iguana.toolkit.music);
+    
+//You can also use bracket notation to access object values
+    console.log(iguana["name"]);
+    console.log(iguana["weight"]);
+    console.log(iguana["toolkit"] ["coolSunGlasses"]);
+    
+//    And you can mix/match dot notation with bracket notation
+    
+    console.log(iguana["toolkit"].music);
+    
+//    You can also update an object's properties or add new properties using dot and bracket notation
+    
+    iguana.weight = 5.2;
+    iguana["age"] = 11;
+    
+    console.log(iguana.weight);
+    console.log(iguana.age);
+    
+    iguana.color = "green";
+    iguana.madGenuis = true;
+    
+    iguana["unlovedAsBaby"] = true;
+    
+    console.log(iguana)
+    
+//    below we are logging the property keys to the console
+    
+    for (var key in iguana) {
+        console.log(key);
+    }
+    
+//    We can also log the values in the same loop so that it makes more sense.
+    for (var key in iguana) {
+        console.log(key, iguana[key]);
+    }
+    
+//    For simplicty, below I am re-assgining the iguana keys and values I added a new key called greeting that adds a function.
+    var iguana = { 
+        name: "Jack", 
+        weight: 4.2, 
+        age: 8, 
+        eyes: "dreamy",
+        questForWorldDomination: true, 
+        greeting: function() {
+            console.log("Hello. I am your new overlord.");
+        }
+    }
+    
+    iguana.greeting();
+    
+    
+//    or we can have the funtion accept a message as a perameter.
+    
+    var iguana = { 
+        name: "Jack", 
+        weight: 4.2, 
+        age: 8, 
+        eyes: "dreamy",
+        questForWorldDomination: true, 
+        greeting: function(message) {
+            console.log(message);
+        }
+    }
+    
+    iguana.greeting("Howdy there.");
+    iguana.greeting("You were my old underlord.")
+    
+        var iguana = { 
+        name: "Jack", 
+        weight: 4.2,
+        length: 1.5,
+        age: 8, 
+        eyes: "dreamy",
+        questForWorldDomination: true, 
+        calculateBMI: function(w, l) {
+            return w / (l*l);
+            }
+        }
+    
+//    You can then pass in values to calculate BMI
+var result = iguana.calculateBMI(4.2,1.5);
+console.log(result);
+    
+//    Or you can use the values from the associated weight and length keys stored in the iguana object to calculate the BMI
+var result = iguana.calculateBMI(iguana.weight, iguana.length);
+console.log(result);
+    
+//    Below we use the keyword that accesses the values pertaining to the object - "this"
+        var iguana = { 
+            name: "Jack", 
+            weight: 4.2,
+            length: 1.5,
+            age: 8, 
+            eyes: "dreamy",
+            questForWorldDomination: true, 
+            calculateBMI: function() {
+                var w = this.weight;
+                var l = this.length;
+                return w / (l*l);
+                }
+            }
+    
+var result = iguana.calculateBMI();
+console.log(result);
+    
+//    And finally if we want to store data about an object and pass that as an argument to a method. The object is lexData and it is being passed to the method iguana.invasionPlans inside of the object iguana
+        var iguana = { 
+            name: "Jack", 
+            weight: 4.2,
+            length: 1.5,
+            age: 8, 
+            eyes: "dreamy",
+            questForWorldDomination: true,
+            invasionPlans: function(inData) {
+                console.log(inData);
+            },
+            calculateBMI: function() {
+                var w = this.weight;
+                var l = this.length;
+                return w / (l*l);
+                }
+            }
+    
+var result = iguana.calculateBMI();
+console.log(result);
+    
+    
+        var lexData = {
+            lat: 38.23,
+            lon: -89.21,
+            name: "Lexington",
+            pop: 821325
+        }
+        
+iguana.invasionPlans(lexData);
+    
+//    There are a number of native methods embedded in javascript.
+//    Below, teh concat method concatenates two strings and can be called on any string type
+    
+    var cityName = "Lexington";
+    console.log(cityName);
+    var cityNameWithState = cityName.concat(", KY");
+    console.log(cityNameWithState);
+    
+//    .toUpperCase changes a string to upper case.
+    var cityNameCaps = cityName.toUpperCase();
+    console.log(cityNameCaps);
+    
+//    .charAt() finds the string character at index 4.
+    console.log(cityName.charAt(4));
+    
+//    .indexOf returns the index of the first character found that is passed to it.
+    console.log(cityName.indexOf("x"));
+    
+    
+//    .toLocaleString() formats a number as a string type and adds commas.
+    
+    var pop = 1200000;
+    var area = 683.24;
+    var density = pop/area;
+    
+    console.log(density);
+    
+    var output = density.toLocaleString();
+    
+    console.log(output);
+    
+    
+//    Important to know that .someMethod(expressionHere) is a method and should be recognized as such!!!!!!!
+    
+    
+//    Push is a method to add an item to the end of an array, pop is a method to remove the last item from an array.
+    var cities = ["Lexington", "Bowling Green"];
+    console.log(cities);
+    cities.push("Frankfort");
+    console.log(cities);
+    cities.pop();
+    console.log(cities);
+    
+    
 </script>
     
 </body>
