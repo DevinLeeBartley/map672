@@ -52,16 +52,16 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>Population Densities of Three Kentucky Cities</h1>
+        <h2>An interactive map</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        <p>Map authored by Devin Bartley</p>
+        <p>Data Sources: Google and Wikipedia</p>
+        <p>This map dynamically updates the population densities of the three cities based on the values entered for areas. Note that if invalid entries are input for the area or unit prompts, you will be asked again to enter in the information until it is correct.
         </p>
     </footer>
 
@@ -80,21 +80,30 @@
         maxZoom: 19
     });
     map.addLayer(tiles);
-
-    // begin writing/editing Lab 05 code here
-
-    var lexArea = Number(prompt("Enter data", "Enter the area of Lexington in square miles"));
     
-    var frankArea = Number(prompt("Enter data", "Enter the area of Frankfort in square miles")); // create a second variable to collect a second city's area here
+//    Below the values arnt accepted unless they are a number.
+
+    do {
+    var lexArea = Number(prompt("Enter data", "Enter the area of Lexington in square miles. Note: if you do not enter a number the popup will ask you again!"));
+    }
+    while (isNaN(lexArea));
+        
+    do {
+    var frankArea = Number(prompt("Enter data", "Enter the area of Frankfort in square miles. Note: if you do not enter a number the popup will ask you again!"));
+    }
+    while (isNaN(frankArea));
+   
+    do {
+    var louisArea = Number(prompt("Enter data", "Enter the area of Louisville in square miles. Note: if you do not enter a number the popup will ask you again!"));
+    }
+    while (isNaN(louisArea));
     
-    var louisArea = Number(prompt("Enter data", "Enter the area of Louisville in square miles")); // create a third variable to collect a third city's area here
+
+    prepareData(lexArea, frankArea, louisArea); 
     
+    function prepareData(lexArea, frankArea, louisArea) { 
 
-    prepareData(lexArea, frankArea, louisArea); // modify this function call to pass all three variables
-
-    function prepareData(lexArea, frankArea, louisArea) { /* modify function to include 2 more parameters */
-
-        var cities = ["Lexington", "Frankfort", "Louisville"]; /* add 2nd and 3rd city names */
+        var cities = ["Lexington", "Frankfort", "Louisville"]; 
         
         var cityCoords = [
             [38.0297, -84.4947],
@@ -102,9 +111,9 @@
             [38.2500, -85.7667]
         ];
         
-        var cityPops = [308428, 27453, 760026]; /* include 2nd and 3rd city pops here */
+        var cityPops = [308428, 27453, 760026];
 
-        var cityAreas = [lexArea, frankArea, louisArea]; /* include 2nd and 3rd city areas */
+        var cityAreas = [lexArea, frankArea, louisArea]; 
 
         mapCities(cities, cityCoords, cityPops, cityAreas);
         
@@ -113,10 +122,10 @@
         
     function mapCities(cities, cityCoords, cityPops, cityAreas) { 
 //
-//        var units = prompt('Units for calculating density', 'Enter "miles" or "km"');
-        
+//        var units = prompt('Units for calculating density', ');
+//        Below the prompt doesn't accept the values unless miles or km is entered into the box. 
         do {
-            var units = prompt('Units for calculating density', 'Enter "miles" or "km"');
+            var units = prompt('Units for calculating density', 'Enter "miles" or "km" Note: Please enter one of these two value exactly or the popup will ask you again!');
         }
         while (units != 'miles' & units != 'km')
 
