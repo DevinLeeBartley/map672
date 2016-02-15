@@ -84,7 +84,9 @@
     // begin writing/editing Lab 05 code here
 
     var lexArea = Number(prompt("Enter data", "Enter the area of Lexington in square miles"));
+    
     var frankArea = Number(prompt("Enter data", "Enter the area of Frankfort in square miles")); // create a second variable to collect a second city's area here
+    
     var louisArea = Number(prompt("Enter data", "Enter the area of Louisville in square miles")); // create a third variable to collect a third city's area here
     
 
@@ -93,11 +95,13 @@
     function prepareData(lexArea, frankArea, louisArea) { /* modify function to include 2 more parameters */
 
         var cities = ["Lexington", "Frankfort", "Louisville"]; /* add 2nd and 3rd city names */
+        
         var cityCoords = [
             [38.0297, -84.4947],
             [38.1970, -84.8630],
             [38.2500, -85.7667]
         ];
+        
         var cityPops = [308428, 27453, 760026]; /* include 2nd and 3rd city pops here */
 
         var cityAreas = [lexArea, frankArea, louisArea]; /* include 2nd and 3rd city areas */
@@ -107,12 +111,14 @@
     }
         
         
-        
-        
-        
     function mapCities(cities, cityCoords, cityPops, cityAreas) { 
-
-        var units = prompt('Units for calculating density', 'Enter "miles" or "km"');
+//
+//        var units = prompt('Units for calculating density', 'Enter "miles" or "km"');
+        
+        do {
+            var units = prompt('Units for calculating density', 'Enter "miles" or "km"');
+        }
+        while (units != 'miles' & units != 'km')
 
         for(var i = 0; i < cities.length; i++) {
             
@@ -123,79 +129,20 @@
 
             L.marker(cityCoords[i]).addTo(map)
                 .bindPopup(popup);
+            
         }
-
     }
-    
     
 
     function calcPopDensity(cityPops, cityAreas, units) {
-        if(units = "miles") {
-            density = (cityPops /(cityAreas * 2.5899));
-        } else(units = "km") 
-            density = (cityPops /cityAreas);
+        
+        if(units === "miles") {
+            density = (cityPops / (cityAreas * 2.5899));
+        } else if(units === "km") 
+            density = (cityPops / cityAreas);
         return density;
-    }   
-//        
-//        
-//    // write a function named calcPopDensity which accepts three arguments, the  
-//    // population, the area of a single city, and the units ('miles' or 'km') entered by
-//    // the user above. The function should calculate the density of the city with these two 
-//    // values and return the result to where the function was called.
-//    }
-//
-//    function mapCities(cities, cityCoords, cityPops, cityAreas) {
-//        for(var i = 0; i < cities.length; i++) {
-//            calcPopDensity(cityPops[i], cityAreas[i], units);
-//            console.log(density);
-//        }
-//    }
-//    
-//    function calcPopDensity(cityPops, cityAreas, units) {
-//        var units = prompt('Units for calculating density', 'Enter "miles" or "km"');
-//        if(units = "miles") {
-//            density = ((cityAreas/999));
-//        } else if(units = "km") {
-//            density = (cityAreas);
-//        } else {
-//            console.log("you didnt type km or miles");
-//        }
-//        return density;
-//    
-//    var density = calcPopDensity(cityPops, cityAreas, units) {
-//        
-//    }
-////            
-////            density = ((cityAreas/999) / cityPops);
-////            return density;
-////        } else if(units = "km") {
-////            density = (cityAreas / cityPops);
-////            return density;
-////        } else {
-////            console.log('you did not enter km or miles');
-////        }
-//        
-//    
-////                call a function named calcPopDensity here, passing
-////                             the city population, area, and units as arguments, and assign
-////                             return value to the "density" variable 
-//            var popup = "<b>"+cities[i]+"</b><br>"
-//                            +"<b>Density</b>: "+density.toLocaleString()+" people per sq " + units;
-//
-//            L.marker(cityCoords[i]).addTo(map)
-//                .bindPopup(popup);
-//
-//        }
-//    
-
-    // write a function named calcPopDensity which accepts three arguments, the  
-    // population, the area of a single city, and the units ('miles' or 'km') entered by
-    // the user above. The function should calculate the density of the city with these two 
-    // values and return the result to where the function was called.
-
-
-    // end writing/editing Lab 05 code here
-
+    }
+    
 </script>
     
 </body>
