@@ -15,7 +15,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: whitesmoke;
+            background: lightgrey;
             font-family: Lato, sans-serif;
             color: #0D0000;
         }
@@ -59,16 +59,16 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>3 Middle American Cities</h1>
+        <h2>And Their Home University State Colors</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        <p>Map authored by Devin Bartley</p>
+        <p>Data Source: Google</p>
+        <p><font color = "darkgrey">This map shows the location of St. Louis, MO, Louisville, KY, and Nashville TN. The team colors of the University of Missouri are <font color = "000000">Black</font> and <font color = "Gold">Gold</font>. University of Kentucky proudly sports <font color = "White">White</font> and <font color = "165bb6">Blue </font>on their jersey's, while the University of Tennessee displays <font color = "Grey">Grey</font> and <font color = "FFA500">Orange</font>. While the cities marked on the map are not necessarily the locations of their University campuses, the popup markers text fonts are colored appropriately based on the state that the city is in.</font>
         </p>
     </footer>
 
@@ -88,22 +88,22 @@
         // Begin writing/modifying code for Lab 06 here
         
         var cities = [
-             {
+            {
                  name: "Louisville",
                  properties: {
                      coordinates: [38.25, -85.7667],
                      population: 756832,
                      state: "KY"
                  }
-             },
-                {
+            },
+            {
                  name: "Nashville",
                  properties:{
                     coordinates:[36.1667, -86.7833],
                     population: 659042,
                     state: "TN"
                 }
-             },
+            },
             {
                 name: "St. Louis",
                 properties: {
@@ -123,7 +123,7 @@
             console.log(cities[i]);
             
             var popup = buildPopup(cities[i].name, props.population, props.state);
-        
+
             L.marker(props.coordinates).addTo(map).bindPopup(popup);
         }
         
