@@ -80,27 +80,143 @@
 //        Also if you wanted to store the options object with the center and zoom properties you could but it within a separate variable and pass it as an argument to the L.map function (as seen below)
         
         var options = {
-            center: [38.0489,-96.5025],
-            zoom: 4,
-            minZoom: 4,
-            maxZoom: 7,
-            dragging: false,
-            zoomControl: false
+            center: [40.7718,-111.9124],
+            zoom: 13,
+            minZoom: 1,
+            maxZoom: 12,
+            dragging: true,
+            zoomControl: true
         }
         
         
         var map = L.map('map', options);
         
-//      You could also set the view later.
+        L.marker([38.0297, -84.4947]).addTo(map); // places a marker on Lexington
         
-        var map = L.map('map');
-        map.setView([38.0489,-96.5025], 0);
+//        Below we are creating a new marker using variables 
+        var redIguanaLocation = L.latLng(40.7718,-111.9124);
+        var redIguanaMarker = L.marker(redIguanaLocation, {
+            draggable: true,
+            opacity: .4,
+            title: "Location of the Red Iguana!",
+            clickable: true,
+            riseOnHover: true,
+            riseOffset: 500
+        });
+        redIguanaMarker.addTo(map);
+        redIguanaMarker.bindPopup("Best Mexican food in the West!",{
+            offset: (8,8)
+        });
+        redIguanaMarker.on('drag', function(e) {
+            console.log(e.target.getLatLng());
+        });
+////        Below we are additing a circle to the map around the redIguana, and setting the optons to add colors and fill colors
+        var redIguanaCircle = L.circle(redIguanaLocation, 400);
+        var regionalLocation = L.circle(redIguanaLocation, 400000, {             color:'#912'})
+//        redIguanaCircle.addTo(map);
+//        regionalLocation.addTo(map);
         
-        map.on('click', function(e) {
-            console.log(e.latlng);
+
+        
+//        Below I am updating the style of the redIguanaCircle after adding it to the map. 
+        redIguanaCircle.setStyle({
+            color: "#d72b1e",
+            weight: 15,
+            fillColor: "#d72b1e",
+            fillOpacity: 9
         });
         
-        var tiles = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+        //        We can also use the following method which creates an empty circle and then supplies coordinates and radius. The circle can not be added to the map unit the required arguments are added.
+////        
+//        var redIguanaLocation = L.latLng(40.7718,-111.9124);
+//        var redIguanaCircle = L.circle();
+//        redIguanaCircle.setLatLng(redIguanaLocation);
+//        redIguanaCircle.setRadius(400);
+//        redIguanaCircle.addTo(map);
+//        
+//        Below we are creating a layer group and adding the restaurants to the group, and then adding the group to the map.
+
+        
+//        Create a layer group to put the restaurants in.
+        var iguanaRestaurants = L.layerGroup();
+//        Create the options for the redIguana restaurants. The options are expressed as key: value pairs.
+        var redIguanaOptions = {
+            color: 'red',
+            fillColor: 'red'
+        };
+//        Create the options for the blueIguana restaurants. the options are expressed as key: value pairs.
+        var blueIguanaOptions = {
+            color: '#03f',
+            fillColor: '#03f'
+        };
+        
+//        Create the redIguana variable as a L.circle object with a centrepoint, width, and then the options from the redIguanaOptions variable
+        var redIguana = L.circle([40.7718,-111.9124], 400, redIguanaOptions);
+//        Assign the color property of the redIguana variable to a recognizable name instead of just a code. Note that I changed it to myRed to demonstrate that this is just a variable.
+        redIguana.color = 'myRed';
+//        Add the redIguana layer to the iguanaRestaurants group.
+        redIguana.addTo(iguanaRestaurants);
+        
+//        Create the blueIguana variable as a L.circle object with a centrepoint, width, and then the options from the blueIguanaOptions variable.
+        var blueIguana = L.circle([40.7657, -111.8930], 300, blueIguanaOptions);
+//        Assign the color property of the blueIguana variable to a recognizable name instead of just a code. Note that I changed it to myBlue to demonstrate that this is just a variable.
+        blueIguana.color = 'myBlue';
+//        Add the blueIguana to the iguanaRestaurants group.
+        blueIguana.addTo(iguanaRestaurants);
+//        Add the iguanaRestaurants group to the map.
+        iguanaRestaurants.addTo(map);
+//      Use the eachLayer function (simular to the for and while loop) to iterate through all the layers in the iguanaRestaurants layer group object. 
+        iguanaRestaurants.eachLayer(function(layer) {
+//       Then, use the .on() method to desingate the 'mouseover' interaction to listen to. Secondly, use an anonymous (aka callback) function to set the style of the target layer to have a yellow fill and outline as the layer's option.
+            layer.on('mouseover', function(e) {
+                e.target.setStyle({
+                    color:'yellow',
+                    fillColor:'yellow'
+                })
+            })
+//            Then, using the .on() method, designate 'mouseout' as the interaction to listen to. 
+            layer.on('mouseout', function(e) {
+//                If the mouseout target color is myred (remember I set the redIguana's color to be myRed), then set the style of the target to be what is specified in the redIguanaOptions.
+                if(e.target.color == 'myRed') {
+                    e.target.setStyle(redIguanaOptions);
+//                    Otherwise if the mouseout target color is myBlue, set the target style to be what is specified inthe blueIguanaOptions.
+                } else if (e.target.color == 'myBlue') {
+                    e.target.setStyle(blueIguanaOptions);
+                }
+                })
+            });
+//        Note that the bindpopup method below, is a short method of the three lines of text below that
+        
+//        L.marker([40.21,-88.154]).addTo(map).bindPopup(popup);
+//        
+//        var city =  L.marker([40.21,-88.154]);
+//        city.addTo(map);
+//        city.bindPopup(popup);
+        
+//      You could also set the view later. This isnt working unless I comment out the lines above.
+//        
+//        var map = L.map('map');
+//        map.setView([38.0489,-96.5025], 0);
+//        
+//        map.on('click', function(e) {
+//            console.log(e.latlng);
+//        });
+        
+//        Note that latlng is an object and you can log keys and values from it.
+        var center = map.getCenter();
+        console.log(center.lat, center.lng);
+        var zoom = map.getZoom();
+        console.log(zoom);
+//        Note that a LatLngBounds object is just two objects with lat/long pairs, and you can pull the lat/long from them with dot notation.
+        var bounds = map.getBounds();
+        console.log(bounds, bounds._southWest.lat);
+//        Or we can also use the methods to get the object values within the LatLngBounds
+        var bottomLeft = bounds.getSouthWest();
+        console.log(bottomLeft);
+        
+        
+//        Below I have chosen a hillshade tile instead of the default.
+        var tiles = L.tileLayer('http://{s}.tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         });    
