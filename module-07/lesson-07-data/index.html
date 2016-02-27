@@ -64,7 +64,50 @@
 
     <script>
 
-      // build your Leaflet map here!
+      // below I am building a leaflet map
+//        Here i am initializing the map and defining its center and zoom
+//        .map() is a method on the L object
+//        The second argument (options) is optional but need to be filled out as a javascript object, hence the curly braces
+        
+        
+        var mapCenter = L.latLng(38.0489,-96.5025);
+        var otherCity = L.latLng(38.1489,-96.5125);
+        var distance = mapCenter.distanceTo(otherCity);  // this will calculate the distance between the points
+        console.log(distance);
+        
+//        You can pass an array of lat/long coordinates to the map or use the latlng object as defined above in the mapCenter variable
+        
+//        Also if you wanted to store the options object with the center and zoom properties you could but it within a separate variable and pass it as an argument to the L.map function (as seen below)
+        
+        var options = {
+            center: [38.0489,-96.5025],
+            zoom: 4,
+            minZoom: 4,
+            maxZoom: 7,
+            dragging: false,
+            zoomControl: false
+        }
+        
+        
+        var map = L.map('map', options);
+        
+//      You could also set the view later.
+        
+        var map = L.map('map');
+        map.setView([38.0489,-96.5025], 0);
+        
+        map.on('click', function(e) {
+            console.log(e.latlng);
+        });
+        
+        var tiles = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        });    
+        map.addLayer(tiles);
+//        
+        
+        
                   
     </script>
     
