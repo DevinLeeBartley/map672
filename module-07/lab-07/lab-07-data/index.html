@@ -52,16 +52,16 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>The Famous Red Iguana</h1>
+        <h2>How close is it to where you click?</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        <p>Map by Devin Bartley</p>
+        <p>New Maps Plus Lesson 07</p>
+        <p>Open the console log to see a readout showing how close the famous Red Iguana restaurant is to where you click on the map, and how close the restaurant is to the South West corner of the map. Note that upon each click the map will re-centre.
         </p>
     </footer>
 
@@ -69,15 +69,37 @@
 
     var map = L.map('map', {
         center: [40,-94],
-        zoom: 4
+        zoom: 4,
+        minZoom: 4,
+        maxZoom: 12
     });
                 
     var redIguana = L.latLng(40.7718,-111.9124);
         
-    map.on('click', function(e){
-        console.log(e.latlng);   
-    });
-                  
+    map.on('click', function(e) {
+        var myLocation = e.latlng; 
+        console.log(myLocation);
+        map.setView([myLocation.lat, myLocation.lng], 6);
+        var distance = myLocation.distanceTo(redIguana);
+        console.log("Distance from the location you clicked to the  Red Iguana is " + (distance / 1000).toLocaleString() + " km's");
+//        var bounds = map.getBounds();
+//        console.log(bounds);
+        var mapSouthWestCorner = map.getBounds()._southWest;
+        console.log(mapSouthWestCorner);
+        var distanceIguanaCorner = redIguana.distanceTo(mapSouthWestCorner);
+        console.log("Distance from the SouthWest corner of the map to the Red Iguana is " + (distanceIguanaCorner / 1000).toLocaleString() + " km's");
+    })
+    
+    var Stamen_TopOSMRelief = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toposm-color-relief/{z}/{x}/{y}.{ext}', {
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	subdomains: 'abcd',
+	minZoom: 0,
+	maxZoom: 20,
+	ext: 'jpg',
+	bounds: [[22, -132], [51, -56]]
+});
+        
+    map.addLayer(Stamen_TopOSMRelief);
     </script>
     
 </body>
