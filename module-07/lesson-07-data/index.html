@@ -209,8 +209,7 @@
         console.log(zoom);
 //        Note that a LatLngBounds object is just two objects with lat/long pairs, and you can pull the lat/long from them with dot notation.
         var bounds = map.getBounds();
-        console.log(bounds);
-//        console.log(bounds, bounds._southWest.lat);
+        console.log(bounds, bounds._southWest.lat);
 //        Or we can also use the methods to get the object values within the LatLngBounds
         var bottomLeft = bounds.getSouthWest();
         console.log(bottomLeft);

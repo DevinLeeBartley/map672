@@ -53,7 +53,7 @@
 <body>
     <header>
         <h1>The Famous Red Iguana</h1>
-        <h2>How close is it to where you click?</h2>
+        <h2>Can you find where it is?</h2>
     </header>
 
     <div id='map'></div>
@@ -61,7 +61,7 @@
     <footer>
         <p>Map by Devin Bartley</p>
         <p>New Maps Plus Lesson 07</p>
-        <p>Open the console log to see a readout showing how close the famous Red Iguana restaurant is to where you click on the map, and how close the restaurant is to the South West corner of the map. Note that upon each click the map will re-centre.
+        <p>Open the console log to see a readout showing how close the famous Red Iguana restaurant is to where you click on the map, and how close the restaurant is to the South West corner of the map. Note that upon each click the map will re-centre and update the information.
         </p>
     </footer>
 
@@ -73,21 +73,22 @@
         minZoom: 4,
         maxZoom: 12
     });
-                
+        
+        
     var redIguana = L.latLng(40.7718,-111.9124);
         
     map.on('click', function(e) {
-        var myLocation = e.latlng; 
-        console.log(myLocation);
+        var myLocation = e.latlng;
+        console.log("_________________________________________") //        add line so that each click event is separated visually in the console log
+        
         map.setView([myLocation.lat, myLocation.lng], 6);
         var distance = myLocation.distanceTo(redIguana);
-        console.log("Distance from the location you clicked to the  Red Iguana is " + (distance / 1000).toLocaleString() + " km's");
-//        var bounds = map.getBounds();
-//        console.log(bounds);
+        console.log("Distance from the location you clicked to the Red Iguana is " + (distance / 1000).toLocaleString() + " km's");
+        
+        
         var mapSouthWestCorner = map.getBounds()._southWest;
-        console.log(mapSouthWestCorner);
         var distanceIguanaCorner = redIguana.distanceTo(mapSouthWestCorner);
-        console.log("Distance from the SouthWest corner of the map to the Red Iguana is " + (distanceIguanaCorner / 1000).toLocaleString() + " km's");
+        console.log("Distance from the Southwest corner of the map to the Red Iguana is " + (distanceIguanaCorner / 1000).toLocaleString() + " km's");
     })
     
     var Stamen_TopOSMRelief = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toposm-color-relief/{z}/{x}/{y}.{ext}', {
