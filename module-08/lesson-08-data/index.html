@@ -49,102 +49,53 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>America's Large Green Powerplants</h1>
+        <h2>Mapping Our Energy Future</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
+        <p>Map authored by Devin Bartley</p>
+        <p>This map shows the location of solar, geothermal, and biomass power plants in the United States that produce greater than 100 MW of power.</p>
     </footer>
-
+<!--    We can load the power-plants geojson file into our page with the script below-->
+    <script src="power-plants.js"></script>
     <script>
         
-//        Define the places variable, which is a GeoJSON object.
-        var places = {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "Tallinn",
-        "size": 159
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          24.7467041015625,
-          59.43390314475794
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "Tartu",
-        "size": 39
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          26.7352294921875,
-          58.37867853932655
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "Parnu",
-        "size": 32
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          24.488525390625,
-          58.39019698411526
-        ]
-      }
-    }
-  ]
-}
 //        defining the map
         var map = L.map('map', {
-            center: [58.73, 25.67], // centered in Estonia
-            zoom: 7
+            center: [36, -94], // centered in Estonia
+            zoom: 4
         });
 
-//        Defining the leaflet tiles
-        var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',        {
+        var tiles =         L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-            subdomains: 'abcd',
-            maxZoom: 19
+        subdomains: 'abcd',
+        maxZoom: 19
         });  
         
-//        adding the leaflet tiles
         tiles.addTo(map);
-        
-//        use the point to layer option in the L.geoJson method and return a circle 100 times bigger than the property's size.
-        var placesLeaflet = L.geoJson(places, {
-            pointToLayer : function(f, ll) {
-                console.log(f.properties.name); //note that you can use the dot notation to get properties of f
-                return L.circle(ll, f.properties.size * 100);
+
+        console.log(plants);
+//        Add plants to the map using circleMarker
+        L.geoJson(plants, {
+            pointToLayer: function(feature, latlng) {
+                return L.circleMarker(latlng, {
+                    color: 'white',
+                    weight: 1,
+                    fillColor: 'green',
+                    fillOpacity: 1,
+                    radius: 8
+                });
+            },
+//            Below we are adding a filter using the L.geoJson() method's filter option, you can use as advanced filter as you want based on the expression that is added. I chose to look to see if the fuel source was Solar, Geothermal, or Biomass and if the capacity in megawatts is greater than 100.
+            filter: function(feature, layer) {
+                if((feature.properties.fuel_source.Geothermal || feature.properties.fuel_source["Solar"] || feature.properties.fuel_source.Biomass) && feature.properties.capacity_mw > 100){
+                    return feature;
+                }
             }
         }).addTo(map);
-        console.log(places);
-        console.log(placesLeaflet);
-
       // build your Leaflet map here!
                   
     </script>
