@@ -84,12 +84,22 @@
 
         plants.features.sort(function (a, b) {
             return b.properties.capacity_mw - a.properties.capacity_mw;
-        })
+        });
 
         function getRadius(area) {
             var radius = Math.sqrt(area / Math.PI);
             return radius * .6;
-        }
+        };
+        
+        var newArray = [];
+        function getFuelSource(feature) {
+            for (var key in feature.properties.fuel_source) {
+                    newArray.push(key);
+              }
+            return newArray;
+            };
+        
+        
 
         var plantsLeaflet = L.geoJson(plants, {
             pointToLayer: function (feature, latlng) {
@@ -112,14 +122,19 @@
                             fillColor: 'lightblue'
                         })
                     })
-                    , layer.bindPopup("Name: " + feature.properties.plant_name.bold() + "<br> Installed Capacity: " + feature.properties.capacity_mw.toString().bold() + " Megawatts");
+            , layer.bindPopup("Name: " + feature.properties.plant_name.bold() + "<br>" +
+                        getFuelSource(feature)[1] + feature.properties.fuel_source[getFuelSource(feature)[1]] + "<br> Installed Capacity: " +
+                        feature.properties.capacity_mw.toString().bold() +
+                        " MW</br>")
             }
             , filter: function (feature, layer) {
-                if (feature.properties.fuel_source.Wind) {
+                if (Object.keys(feature.properties.fuel_source).length > 1) {
                     return feature;
                 }
             }
         }).addTo(map);
+
+
 
         console.log(plantsLeaflet);
 
