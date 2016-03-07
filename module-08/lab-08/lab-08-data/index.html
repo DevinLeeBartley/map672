@@ -62,8 +62,10 @@
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
+        <p>Map authored by Devin Bartley</p>
+        <p>This map shows the capacity of power plants in the United States that use more than one fuel source. The size of the circle for each plant is porportional to the total generation capacity. If you click on the circle the specific generation capacity for each fuel source is listed. Data source:
+            <a href="http://www.eia.gov/electricity/data/eia923/">US Energy Information Administration</a>
+        </p>
     </footer>
 
     <script src="power-plants.js"></script>
@@ -90,51 +92,54 @@
             var radius = Math.sqrt(area / Math.PI);
             return radius * .6;
         };
-        
-//        the function below gets the fuel source, it puts both values of the fuel source key's into an array.
+
+        //        the function below gets the fuel source, it puts both values of the fuel source keys into an array.
+
         function getFuelSource(feature) {
             var newArray = [];
             for (var key in feature.properties.fuel_source) {
-                    newArray.push(key);
-              }
+                newArray.push(key);
+            }
             return newArray;
-            };
-        
+        };
+
         var plantsLeaflet = L.geoJson(plants, {
             pointToLayer: function (feature, latlng) {
                 return L.circleMarker(latlng, {
                     color: 'white'
                     , weight: 1
                     , fillColor: 'lightblue'
-                    , fillOpacity: .8, //                 radius: feature.properties.capacity_mw * 0.01
-                    radius: getRadius(feature.properties.capacity_mw)
+                    , fillOpacity: .8
+                    , radius: getRadius(feature.properties.capacity_mw)
                 });
             }
             , onEachFeature: function (feature, layer) {
-                layer.on('mouseover', function () {
-                    layer.setStyle({
-                        fillColor: 'grey'
-                    })
-                })
-                layer.on('mouseout', function () {
-                        layer.setStyle({
-                            fillColor: 'lightblue'
+                    layer.on('mouseover', function () {
+                            layer.setStyle({
+                                fillColor: 'grey'
+                            })
                         })
-                    })
-//            below the labels will adjust based on whichever fuel types are present at the site.
-            , layer.bindPopup("Name: " +
+                        , layer.on('mouseout', function () {
+                            layer.setStyle({
+                                fillColor: 'lightblue'
+                            , })
+                        })
+                        //            below the labels will adjust based on whichever fuel types are present at the site. It uses the getFuelSource function and pulls out the first and second value in the array separately so that they can be on distinct lines of the popup.    
+                    
+                    , layer.bindPopup("Name: " +
                         feature.properties.plant_name.bold() +
-                        "<br>" + 
-                        feature.properties.capacity_mw.toString() +
+                        "<br>" +
+                        feature.properties.capacity_mw.toLocaleString() +
                         " MW Total Capacity</br>" +
                         getFuelSource(feature)[0] + ": " +
-                        feature.properties.fuel_source[getFuelSource(feature)[0]] +
-                        " MW <br>" + 
+                        feature.properties.fuel_source[getFuelSource(feature)[0]].toLocaleString() +
+                        " MW <br>" +
                         getFuelSource(feature)[1] + ": " +
-                        feature.properties.fuel_source[getFuelSource(feature)[1]] +
+                        feature.properties.fuel_source[getFuelSource(feature)[1]].toLocaleString() +
                         " MW")
-            }
-//            The filter below filters the map to only show sites where more than one fuel source is in use. This does not filter for two specific fuel sources, any combination of two will show up on the map.
+                }
+                //            The filter below filters the map to only show sites where more than one fuel source is in use. This does not filter for specific fuel sources, any combination of two will show up on the map.
+            
             , filter: function (feature, layer) {
                 if (Object.keys(feature.properties.fuel_source).length > 1) {
                     return feature;
