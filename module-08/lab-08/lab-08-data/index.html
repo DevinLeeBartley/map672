@@ -55,8 +55,8 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>Multiple Fuel Source Power Plants</h1>
+        <h2>An Interactive Map</h2>
     </header>
 
     <div id='map'></div>
@@ -91,16 +91,15 @@
             return radius * .6;
         };
         
-        var newArray = [];
+//        the function below gets the fuel source, it puts both values of the fuel source key's into an array.
         function getFuelSource(feature) {
+            var newArray = [];
             for (var key in feature.properties.fuel_source) {
                     newArray.push(key);
               }
             return newArray;
             };
         
-        
-
         var plantsLeaflet = L.geoJson(plants, {
             pointToLayer: function (feature, latlng) {
                 return L.circleMarker(latlng, {
@@ -122,19 +121,26 @@
                             fillColor: 'lightblue'
                         })
                     })
-            , layer.bindPopup("Name: " + feature.properties.plant_name.bold() + "<br>" +
-                        getFuelSource(feature)[1] + feature.properties.fuel_source[getFuelSource(feature)[1]] + "<br> Installed Capacity: " +
-                        feature.properties.capacity_mw.toString().bold() +
-                        " MW</br>")
+//            below the labels will adjust based on whichever fuel types are present at the site.
+            , layer.bindPopup("Name: " +
+                        feature.properties.plant_name.bold() +
+                        "<br>" + 
+                        feature.properties.capacity_mw.toString() +
+                        " MW Total Capacity</br>" +
+                        getFuelSource(feature)[0] + ": " +
+                        feature.properties.fuel_source[getFuelSource(feature)[0]] +
+                        " MW <br>" + 
+                        getFuelSource(feature)[1] + ": " +
+                        feature.properties.fuel_source[getFuelSource(feature)[1]] +
+                        " MW")
             }
+//            The filter below filters the map to only show sites where more than one fuel source is in use. This does not filter for two specific fuel sources, any combination of two will show up on the map.
             , filter: function (feature, layer) {
                 if (Object.keys(feature.properties.fuel_source).length > 1) {
                     return feature;
                 }
             }
         }).addTo(map);
-
-
 
         console.log(plantsLeaflet);
 

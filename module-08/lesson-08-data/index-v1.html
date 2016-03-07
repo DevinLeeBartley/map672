@@ -137,8 +137,8 @@
         
 //        use the point to layer option in the L.geoJson method and return a circle 100 times bigger than the property's size.
         var placesLeaflet = L.geoJson(places, {
-            pointToLayer : function(f, ll) {
-                console.log(f.properties.name); //note that you can use the dot notation to get properties of f
+            pointToLayer(f, ll) {
+                console.log(f.properties.name + "hahaha"); //note that you can use the dot notation to get properties of f
                 return L.circle(ll, f.properties.size * 100);
             }
         }).addTo(map);
