@@ -104,7 +104,7 @@
         };
 
         var plantsLeaflet = L.geoJson(plants, {
-            pointToLayer: function (feature, latlng) {
+            pointToLayer(feature, latlng) {
                 return L.circleMarker(latlng, {
                     color: 'white'
                     , weight: 1
