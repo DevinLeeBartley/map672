@@ -75,6 +75,94 @@
       });  
       
       tiles.addTo(map);
+        
+            function getRadius(val) {
+            var radius = Math.sqrt(val / Math.PI);
+            return radius * .8;
+        }
+
+        var commonStyles = {
+            weight: 1
+            , stroke: 1
+            , fillOpacity: .8
+        }
+
+        var layerInfo = {
+            nuclearLayer: {
+                source: "Nuclear"
+                , color: '#FFB6C1'
+            }
+            , windLayer: {
+                source: "Wind"
+                , color: '#6A5ACD'
+            }
+            , solarLayer: {
+                source: "Solar"
+                , color: "#FF7F50"
+            }
+        };
+
+        var geoJsonLayers = {};
+
+        for (var layer in layerInfo) {
+            geoJsonLayers[layer] = L.geoJson(plants, {
+                pointToLayer: function (feature, latlng) {
+                    return L.circleMarker(latlng, commonStyles);
+                }
+                , filter: function (feature) {
+                    if (feature.properties.fuel_source[layerInfo[layer].source]) {
+                        return feature;
+                    }
+                }
+                , style: function (feature) {
+                    return {
+                        color: layerInfo[layer].color
+                        , fillColor: layerInfo[layer].color
+                        , radius: getRadius(feature.properties.fuel_source[layerInfo[layer].source])
+                    }
+                }
+            }).addTo(map);
+
+        }
+//challenge is below
+        map.on('click', function (e) {
+            for (var layer in layerInfo) {
+                geoJsonLayers[layer].eachLayer(function (layer) {
+                    var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
+
+                    if (distance > 500) {
+                        layer.setStyle({
+                            stroke: false
+                            , fill: false
+                        });
+                    } else {
+                        layer.setStyle({
+                            stroke: true
+                            , fill: true
+                        });
+                        layer.bindPopup("I am <b>" + distance.toLocaleString() +
+                            "km</b><br> from the click point.");
+                    }
+                });
+            }
+            });
+
+        function getRadius(val) {
+            var radius = Math.sqrt(val / Math.PI);
+            return radius * .8;
+        }
+
+        var sourcesLabels = {
+            "Nuclear": geoJsonLayers.nuclearLayer
+            , "Wind": geoJsonLayers.windLayer
+            , "Solar": geoJsonLayers.solarLayer
+        }
+
+        L.control.layers(null, sourcesLabels, {
+            collapsed: false
+        }).addTo(map);
+
+
                   
     </script>
     
