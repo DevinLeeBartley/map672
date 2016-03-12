@@ -19,27 +19,33 @@
             font-family: Lato, sans-serif;
             color: #0D0000;
         }
+        
         header {
             padding: 6px 10%;
         }
+        
         h1 {
             display: inline-block;
             margin-right: 20px;
             color: #001323;
         }
+        
         h2 {
             display: inline-block;
             color: #001323;
         }
+        
         #map {
             width: 80%;
             height: 540px;
             margin: 10px auto;
         }
+        
         footer {
             padding: 6px 10%;
             width: 80%;
         }
+        
         p {
             font-size: 1em;
             color: #001323;
@@ -49,37 +55,43 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>Zero Emission Power Plants in the United States</h1>
+        <h2>An Interactive map</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
+        <p>Map authored by Devin Bartley</p>
         <p>Additional information about the data and map goes here.</p>
     </footer>
 
     <script src="power-plants.js"></script>
     <script>
+        var map = L.map('map', {
+            center: [36, -94]
+            , zoom: 4
+        , });
 
-       var map = L.map('map', {
-          center: [36,-94],
-          zoom: 4,
-      });
-      
-      var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-          subdomains: 'abcd',
-          maxZoom: 19
-      });  
-      
-      tiles.addTo(map);
-        
-            function getRadius(val) {
+        var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+            , subdomains: 'abcd'
+            , maxZoom: 19
+        });
+
+        tiles.addTo(map);
+
+        function getRadius(val) {
             var radius = Math.sqrt(val / Math.PI);
             return radius * .8;
         }
+        
+        function getFuelSource(feature) {
+            for (var key in feature.properties.fuel_source) {
+                return key
+            }
+        };
+
 
         var commonStyles = {
             weight: 1
@@ -121,14 +133,21 @@
                         , radius: getRadius(feature.properties.fuel_source[layerInfo[layer].source])
                     }
                 }
-            }).addTo(map);
+                
+                }).addTo(map);
 
         }
-//challenge is below
+
         map.on('click', function (e) {
             for (var layer in layerInfo) {
                 geoJsonLayers[layer].eachLayer(function (layer) {
+//                        console.log(layer.feature.properties.fuel_source);
+                    //                    function getFuelSource(layer) {
+//                        console.log(layer.properties.fuel_source);
+//                        return layer.properties.fuel_source;
+//                    };
                     var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
+                    layer.bindPopup("Plant Name: " + layer.feature.properties.plant_name + "<br>Fuel Source: " + getFuelSource(layer.feature) + "<br> Distance from click: " + distance.toLocaleString() + " km");
 
                     if (distance > 500) {
                         layer.setStyle({
@@ -140,12 +159,17 @@
                             stroke: true
                             , fill: true
                         });
-                        layer.bindPopup("I am <b>" + distance.toLocaleString() +
-                            "km</b><br> from the click point.");
                     }
+                    
+//                    console.log(getFuelSource(layer));
+//                    getFuelSource(layer);
+//                    layer.bindPopup(layer.source);
+                    //                    layer.bindPopup(getFuelSource(layer));
+
+//                    console.log(getFuelSource(layer));
                 });
             }
-            });
+        });
 
         function getRadius(val) {
             var radius = Math.sqrt(val / Math.PI);
@@ -153,19 +177,16 @@
         }
 
         var sourcesLabels = {
-            "Nuclear": geoJsonLayers.nuclearLayer
-            , "Wind": geoJsonLayers.windLayer
-            , "Solar": geoJsonLayers.solarLayer
+            "<font color='#FFB6C1'><b>Nuclear</b></font>": geoJsonLayers.nuclearLayer
+            , "<font color='#6A5ACD'><b>Wind</b></font>": geoJsonLayers.windLayer
+            , "<font color='#FF7F50'><b>Solar</b></font>": geoJsonLayers.solarLayer
         }
 
         L.control.layers(null, sourcesLabels, {
             collapsed: false
         }).addTo(map);
-
-
-                  
     </script>
-    
+
 </body>
 
 </html>
