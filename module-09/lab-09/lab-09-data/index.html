@@ -63,7 +63,8 @@
 
     <footer>
         <p>Map authored by Devin Bartley</p>
-        <p>Additional information about the data and map goes here.</p>
+        <p>This map displays solar, wind, and nuclear power plants in the united states. The size of the circle for each plant is porportional to the total generation capacity. Clicking in an area will focus the map to a 500 km radius. If you click on an individual power plant, more information about the plant will display. Data source:
+            <a href="http://www.eia.gov/electricity/data/eia923/">US Energy Information Administration </p>
     </footer>
 
     <script src="power-plants.js"></script>
@@ -96,8 +97,10 @@
         var commonStyles = {
             weight: 1
             , stroke: 1
-            , fillOpacity: .8
+            , fillOpacity: .9
         }
+        
+
 
         var layerInfo = {
             nuclearLayer: {
@@ -137,8 +140,22 @@
                 }).addTo(map);
 
         }
-
+        
+        
         map.on('click', function (e) {
+            var filterCapacity = 0;
+            var circleCoords = e.latlng;
+            var otherCircle = L.circle([circleCoords.lat, circleCoords.lng], 500000, {
+                stroke: false,
+                color: 'White',
+                fillColor: 'White',
+                fillOpacity: 0.1
+            }).addTo(map).bringToBack();
+//            here I am making the layer dissapear on the second click
+            map.on('click', function(e) {
+                map.removeLayer(otherCircle);
+            });
+            
             for (var layer in layerInfo) {
                 geoJsonLayers[layer].eachLayer(function (layer) {
 //                        console.log(layer.feature.properties.fuel_source);
@@ -147,7 +164,7 @@
 //                        return layer.properties.fuel_source;
 //                    };
                     var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
-                    layer.bindPopup("Plant Name: " + layer.feature.properties.plant_name + "<br>Fuel Source: " + getFuelSource(layer.feature) + "<br> Distance from click: " + distance.toLocaleString() + " km");
+                    layer.bindPopup("Plant Name: " + layer.feature.properties.plant_name + "<br>Fuel Source: " + getFuelSource(layer.feature) + "<br> Distance from click: " + distance.toLocaleString() + " km" + "Capacity" + layer.feature.properties.capacity_mw);
 
                     if (distance > 500) {
                         layer.setStyle({
@@ -159,6 +176,7 @@
                             stroke: true
                             , fill: true
                         });
+                        filterCapacity += layer.feature.properties.capacity_mw;
                     }
                     
 //                    console.log(getFuelSource(layer));
@@ -169,8 +187,10 @@
 //                    console.log(getFuelSource(layer));
                 });
             }
+            console.log("filter capacity: " + filterCapacity);
+            otherCircle.bindPopup("hello!" + filterCapacity);
         });
-
+        
         function getRadius(val) {
             var radius = Math.sqrt(val / Math.PI);
             return radius * .8;
@@ -185,6 +205,7 @@
         L.control.layers(null, sourcesLabels, {
             collapsed: false
         }).addTo(map);
+        
     </script>
 
 </body>
