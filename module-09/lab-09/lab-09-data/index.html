@@ -160,13 +160,12 @@
             
             for (var layer in layerInfo) {
                 geoJsonLayers[layer].eachLayer(function (layer) {
-//                        console.log(layer.feature.properties.fuel_source);
-                    //                    function getFuelSource(layer) {
-//                        console.log(layer.properties.fuel_source);
-//                        return layer.properties.fuel_source;
-//                    };
+                    
                     var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
-                    layer.bindPopup("Plant Name: " + layer.feature.properties.plant_name + "<br>Fuel Source: " + getFuelSource(layer.feature) + "<br> Distance from click: " + distance.toLocaleString() + " km" + "<br>Capacity: " + layer.feature.properties.capacity_mw);
+                    layer.bindPopup("Plant Name: " + layer.feature.properties.plant_name
+                                    + "<br>Fuel Source: " + getFuelSource(layer.feature) 
+                                    + "<br> Distance from click: " + distance.toLocaleString() 
+                                    + " km" + "<br>Capacity: " + layer.feature.properties.capacity_mw);
 
                     if (distance > 500) {
                         layer.setStyle({
