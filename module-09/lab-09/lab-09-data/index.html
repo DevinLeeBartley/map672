@@ -63,7 +63,7 @@
 
     <footer>
         <p>Map authored by Devin Bartley</p>
-        <p>This map displays solar, wind, and nuclear power plants in the united states. The size of the circle for each plant is porportional to the total generation capacity. Clicking in an area will focus the map to a 500 km radius. If you click on an individual power plant, more information about the plant will display. Data source:
+        <p>This map displays solar, wind, and nuclear power plants in the united states. The size of the circle for each plant is porportional to the total generation capacity. Clicking in an area will filter the map to a 500 km radius. If you click on an individual power plant, more information about the plant will display. If you click on your 500 km radius, a filter will appear showing the total generation capacity in the filter area. Data source:
             <a href="http://www.eia.gov/electricity/data/eia923/">US Energy Information Administration </p>
     </footer>
 
@@ -114,7 +114,7 @@
             , solarLayer: {
                 source: "Solar"
                 , color: "#FF7F50"
-            }
+            }        
         };
 
         var geoJsonLayers = {};
@@ -144,8 +144,10 @@
         
         map.on('click', function (e) {
             var filterCapacity = 0;
-            var circleCoords = e.latlng;
-            var otherCircle = L.circle([circleCoords.lat, circleCoords.lng], 500000, {
+            var windCapacity = 0;
+            var nuclearCapacity = 0;
+            var solarCapacity = 0;
+            var otherCircle = L.circle(e.latlng, 500000, {
                 stroke: false,
                 color: 'White',
                 fillColor: 'White',
@@ -164,7 +166,7 @@
 //                        return layer.properties.fuel_source;
 //                    };
                     var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
-                    layer.bindPopup("Plant Name: " + layer.feature.properties.plant_name + "<br>Fuel Source: " + getFuelSource(layer.feature) + "<br> Distance from click: " + distance.toLocaleString() + " km" + "Capacity" + layer.feature.properties.capacity_mw);
+                    layer.bindPopup("Plant Name: " + layer.feature.properties.plant_name + "<br>Fuel Source: " + getFuelSource(layer.feature) + "<br> Distance from click: " + distance.toLocaleString() + " km" + "<br>Capacity: " + layer.feature.properties.capacity_mw);
 
                     if (distance > 500) {
                         layer.setStyle({
@@ -176,19 +178,32 @@
                             stroke: true
                             , fill: true
                         });
+                        
                         filterCapacity += layer.feature.properties.capacity_mw;
+                        
+                        if (layer.feature.properties.fuel_source.Wind) {
+                            windCapacity += layer.feature.properties.fuel_source.Wind;    
+                        };
+                        
+                        if (layer.feature.properties.fuel_source.Solar) {
+                            solarCapacity += layer.feature.properties.fuel_source.Solar;
+                        };
+                        
+                        if (layer.feature.properties.fuel_source.Nuclear) {
+                            nuclearCapacity += layer.feature.properties.fuel_source.Nuclear;
+                        }
+                        
                     }
-                    
-//                    console.log(getFuelSource(layer));
-//                    getFuelSource(layer);
-//                    layer.bindPopup(layer.source);
-                    //                    layer.bindPopup(getFuelSource(layer));
-
-//                    console.log(getFuelSource(layer));
+                
                 });
             }
-            console.log("filter capacity: " + filterCapacity);
-            otherCircle.bindPopup("hello!" + filterCapacity);
+            
+            otherCircle.bindPopup("<b>Total generation capacity within filter: </b>"
+                                  + filterCapacity.toLocaleString() + "MW<br>"
+                                  + "<b>Wind Capacity: </b>" + windCapacity.toLocaleString()
+                                  + " MW<br>" + "<b>Solar Capacity: </b>" + solarCapacity.toLocaleString()
+                                  + " MW<br>" + "<b>Nuclear Capacity: </b>" + nuclearCapacity.toLocaleString() + " MW");
+            
         });
         
         function getRadius(val) {
