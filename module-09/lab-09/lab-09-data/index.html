@@ -15,8 +15,8 @@
         body {
             margin: 0;
             padding: 0;
-            background: whitesmoke;
-            font-family: Lato, sans-serif;
+            background-color: whitesmoke;
+            font-family: Century Gothic, sans-serif;
             color: #0D0000;
         }
         
@@ -27,12 +27,14 @@
         h1 {
             display: inline-block;
             margin-right: 20px;
-            color: #001323;
+            color: darkblue;
+            font-size: 3em;
         }
         
         h2 {
             display: inline-block;
-            color: #001323;
+            color: darkblue;
+            font-size: 2em;
         }
         
         #map {
@@ -44,6 +46,7 @@
         footer {
             padding: 6px 10%;
             width: 80%;
+            font-family: Century Gothic, sans-serif;
         }
         
         p {
@@ -99,8 +102,6 @@
             , stroke: 1
             , fillOpacity: .9
         }
-        
-
 
         var layerInfo = {
             nuclearLayer: {
@@ -143,17 +144,19 @@
         
         
         map.on('click', function (e) {
+//            setting up the variables as number types with a value of 0 so that the generation capacity can be added on later...
             var filterCapacity = 0;
             var windCapacity = 0;
             var nuclearCapacity = 0;
             var solarCapacity = 0;
+//            Setting up the spotlight filter circle
             var otherCircle = L.circle(e.latlng, 500000, {
                 stroke: false,
                 color: 'White',
                 fillColor: 'White',
                 fillOpacity: 0.1
             }).addTo(map).bringToBack();
-//            here I am making the layer dissapear on the second click
+//            below I am making the layer dissapear on the second click
             map.on('click', function(e) {
                 map.removeLayer(otherCircle);
             });
@@ -178,8 +181,10 @@
                             , fill: true
                         });
                         
+//                        no filter is needed on the filter capacity variable because all objects contain a value within the capacity_mw property
                         filterCapacity += layer.feature.properties.capacity_mw;
                         
+//                        filtering out the null values and then adding the capacity of each feature within the filter to the fuel source total
                         if (layer.feature.properties.fuel_source.Wind) {
                             windCapacity += layer.feature.properties.fuel_source.Wind;    
                         };
@@ -197,6 +202,7 @@
                 });
             }
             
+//            below I am creating the popup with the capacity numbers for the filter
             otherCircle.bindPopup("<b>Total generation capacity within filter: </b>"
                                   + filterCapacity.toLocaleString() + "MW<br>"
                                   + "<b>Wind Capacity: </b>" + windCapacity.toLocaleString()
