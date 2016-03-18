@@ -104,18 +104,19 @@
         }
 
         var layerInfo = {
-            nuclearLayer: {
+            Nuclear: {
                 source: "Nuclear"
                 , color: '#FFB6C1'
             }
-            , windLayer: {
+            , Wind: {
                 source: "Wind"
                 , color: '#6A5ACD'
             }
-            , solarLayer: {
+            , Solar: {
                 source: "Solar"
                 , color: "#FF7F50"
-            }        
+            }
+            
         };
 
         var geoJsonLayers = {};
@@ -141,14 +142,19 @@
                 }).addTo(map);
 
         }
-        
-        
+    
         map.on('click', function (e) {
 //            setting up the variables as number types with a value of 0 so that the generation capacity can be added on later...
             var filterCapacity = 0;
             var windCapacity = 0;
             var nuclearCapacity = 0;
             var solarCapacity = 0;
+            var currentCap = 0;
+            var popUpText = '';
+            var emptyObject = {
+            };
+
+            
 //            setting up the spotlight filter circle
             var otherCircle = L.circle(e.latlng, 500000, {
                 stroke: false,
@@ -162,14 +168,15 @@
                 map.removeLayer(otherCircle);
             });
             
+            
             for (var layer in layerInfo) {
+                var currentCap = 0;
                 geoJsonLayers[layer].eachLayer(function (layer) {
-                    
                     var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
                     layer.bindPopup("Plant Name: " + layer.feature.properties.plant_name
                                     + "<br>Fuel Source: " + getFuelSource(layer.feature) 
                                     + "<br> Distance from click: " + distance.toLocaleString() 
-                                    + " km" + "<br>Capacity: " + layer.feature.properties.capacity_mw);
+                                    + " km" + "<br>Capacity: " + layer.feature.properties.capacity_mw + " MW");
 
                     if (distance > 500) {
                         layer.setStyle({
@@ -182,54 +189,56 @@
                             , fill: true
                         });
                         
-                        
-//                        Below I was trying out a few different loops to try to factor the creation of the total values but I wasn't able to get it to work and ran out of time
-//                        
-//                        if (getFuelSource(layer.feature)) {
-//                            console.log(getFuelSource(layer.feature))
-//                            
-//                            for (thing in getFuelSource(layer.feature)) {
-//                                filterCapacity2 += layer.feature.properties.capacity_mw;
-//                                console.log(filterCapacity2);
-//                            }
-//                        }
-//                        for (thing in layer.feature) {
-//                            filterCapacity2 += layer.feature.properties.capacity_mw;
-//                            console.log("filterCapacity2 :" + filterCapacity2)
-//                            console.log(getFuelSource(layer.feature));
-//                            console.log(layer.feature);
-//                        }    
+                        for (thing in layer.feature) {
+                            var thing = getFuelSource(layer.feature);
+                            if (getFuelSource(layer.feature) == thing) {
+                                var thing = getFuelSource(layer.feature);
+                                currentCap += layer.feature.properties.fuel_source[thing];
+                                emptyObject[thing] = {capacity : currentCap};
+                            };
+                            break;
+                        }
+ 
                         
                         
 //                        no filter is needed on the filter capacity variable because all objects contain a value within the capacity_mw property, this variable totals the capacity for each plant within the filter.
-                        filterCapacity += layer.feature.properties.capacity_mw;
+
                         
-//                        filtering out the null values and then adding the capacity of each fuel source of each feature within the filter to the fuel source total
-                        if (layer.feature.properties.fuel_source.Wind) {
-                            windCapacity += layer.feature.properties.fuel_source.Wind;    
-                        };
-                        
-                        if (layer.feature.properties.fuel_source.Solar) {
-                            solarCapacity += layer.feature.properties.fuel_source.Solar;
-                        };
-                        
-                        if (layer.feature.properties.fuel_source.Nuclear) {
-                            nuclearCapacity += layer.feature.properties.fuel_source.Nuclear;
-                        };
+//                        Below was my first attempt at totalling the fuel sources for the popup. I found a more elegant factored way below so this section is commented out.
+//                        filterCapacity += layer.feature.properties.capacity_mw;
+//                        if (layer.feature.properties.fuel_source.Wind) {
+//                            windCapacity += layer.feature.properties.fuel_source.Wind;    
+//                        };
+//                        
+//                        if (layer.feature.properties.fuel_source.Solar) {
+//                            solarCapacity += layer.feature.properties.fuel_source.Solar;
+//                        };
+//                        
+//                        if (layer.feature.properties.fuel_source.Nuclear) {
+//                            nuclearCapacity += layer.feature.properties.fuel_source.Nuclear;
+//                        };
                         
                     }
-                
+
                 });
             }
             
-//            below I am creating the popup with the capacity numbers for the filter
-            otherCircle.bindPopup("<b>Total generation capacity within filter: </b>"
-                                  + filterCapacity.toLocaleString() + "MW <br>"
-                                  + "<b>Wind Capacity: </b>" + windCapacity.toLocaleString()
-                                  + " MW<br>" + "<b>Solar Capacity: </b>" + solarCapacity.toLocaleString()
-                                  + " MW<br>" + "<b>Nuclear Capacity: </b>" + nuclearCapacity.toLocaleString() + " MW");
-            
+//            below I am creating the popup with the capacity numbers for the filter area
+            for (var key in emptyObject) {
+                popUpText += "<b>" + key + " Capacity: </b>"
+                popUpText += emptyObject[key].capacity.toLocaleString() + " MW<br>"
+            }
+            otherCircle.bindPopup("Generation capacity within this filter: <br>" + popUpText
+//                                  the commented out lines below are the old popup solution
+//                                  + "<b>Total generation capacity within filter: </b>"
+//                                  + filterCapacity.toLocaleString() + "MW <br>"
+//                                  + "<b>Wind Capacity: </b>" + windCapacity.toLocaleString()
+//                                  + " MW<br>" + "<b>Solar Capacity: </b>" + solarCapacity.toLocaleString()
+//                                  + " MW<br>" + "<b>Nuclear Capacity: </b>" + nuclearCapacity.toLocaleString() + " MW"
+                                    );
             });
+        
+
         
         function getRadius(val) {
             var radius = Math.sqrt(val / Math.PI);
@@ -237,9 +246,9 @@
         }
 
         var sourcesLabels = {
-            "<font color='#FFB6C1'><b>Nuclear</b></font>": geoJsonLayers.nuclearLayer
-            , "<font color='#6A5ACD'><b>Wind</b></font>": geoJsonLayers.windLayer
-            , "<font color='#FF7F50'><b>Solar</b></font>": geoJsonLayers.solarLayer
+            "<font color='#FFB6C1'><b>Nuclear</b></font>": geoJsonLayers.Nuclear
+            , "<font color='#6A5ACD'><b>Wind</b></font>": geoJsonLayers.Wind
+            , "<font color='#FF7F50'><b>Solar</b></font>": geoJsonLayers.Solar
         }
 
         L.control.layers(null, sourcesLabels, {
