@@ -144,7 +144,7 @@
         }
     
         map.on('click', function (e) {
-//            setting up the variables as number types with a value of 0 so that the generation capacity can be added on later...
+//            setting up empty variables as number types with a value of 0 so that the generation capacity can be added on later...
             var filterCapacity = 0;
             var windCapacity = 0;
             var nuclearCapacity = 0;
@@ -189,18 +189,6 @@
                             , fill: true
                         });
                         
-                        // I'm not certain what's happening here
-//                        for (thing in layer.feature) {
-//                            var thing = getFuelSource(layer.feature);
-//                            if (getFuelSource(layer.feature) == thing) {
-//                                var thing = getFuelSource(layer.feature);
-//                                currentCap += layer.feature.properties.fuel_source[thing];
-//                                emptyObject[thing] = {capacity : currentCap};
-//                            };
-//                            break;
-//                        }
-                        
-                        // here's what i was thinking
                         var props = layer.feature.properties;
                         for (var source in props.fuel_source) {
                             if(emptyObject[source]) {
@@ -209,25 +197,6 @@
                                 emptyObject[source] = props.fuel_source[source]; 
                             }
                         } 
- 
-                        
-                        
-//                        no filter is needed on the filter capacity variable because all objects contain a value within the capacity_mw property, this variable totals the capacity for each plant within the filter.
-
-                        
-//                        Below was my first attempt at totalling the fuel sources for the popup. I found a more elegant factored way below so this section is commented out.
-//                        filterCapacity += layer.feature.properties.capacity_mw;
-//                        if (layer.feature.properties.fuel_source.Wind) {
-//                            windCapacity += layer.feature.properties.fuel_source.Wind;    
-//                        };
-//                        
-//                        if (layer.feature.properties.fuel_source.Solar) {
-//                            solarCapacity += layer.feature.properties.fuel_source.Solar;
-//                        };
-//                        
-//                        if (layer.feature.properties.fuel_source.Nuclear) {
-//                            nuclearCapacity += layer.feature.properties.fuel_source.Nuclear;
-//                        };
                         
                     }
 
@@ -240,16 +209,9 @@
                 popUpText += emptyObject[key].toLocaleString() + " MW<br>"
             }
             otherCircle.bindPopup("Generation capacity within this filter: <br>" + popUpText
-//                                  the commented out lines below are the old popup solution
-//                                  + "<b>Total generation capacity within filter: </b>"
-//                                  + filterCapacity.toLocaleString() + "MW <br>"
-//                                  + "<b>Wind Capacity: </b>" + windCapacity.toLocaleString()
-//                                  + " MW<br>" + "<b>Solar Capacity: </b>" + solarCapacity.toLocaleString()
-//                                  + " MW<br>" + "<b>Nuclear Capacity: </b>" + nuclearCapacity.toLocaleString() + " MW"
-                                    ).openPopup();
+                        ).openPopup();
             });
         
-
         
         function getRadius(val) {
             var radius = Math.sqrt(val / Math.PI);
