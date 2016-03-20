@@ -189,15 +189,26 @@
                             , fill: true
                         });
                         
-                        for (thing in layer.feature) {
-                            var thing = getFuelSource(layer.feature);
-                            if (getFuelSource(layer.feature) == thing) {
-                                var thing = getFuelSource(layer.feature);
-                                currentCap += layer.feature.properties.fuel_source[thing];
-                                emptyObject[thing] = {capacity : currentCap};
-                            };
-                            break;
-                        }
+                        // I'm not certain what's happening here
+//                        for (thing in layer.feature) {
+//                            var thing = getFuelSource(layer.feature);
+//                            if (getFuelSource(layer.feature) == thing) {
+//                                var thing = getFuelSource(layer.feature);
+//                                currentCap += layer.feature.properties.fuel_source[thing];
+//                                emptyObject[thing] = {capacity : currentCap};
+//                            };
+//                            break;
+//                        }
+                        
+                        // here's what i was thinking
+                        var props = layer.feature.properties;
+                        for (var source in props.fuel_source) {
+                            if(emptyObject[source]) {
+                                emptyObject[source]+=props.fuel_source[source];
+                            } else {
+                                emptyObject[source] = props.fuel_source[source]; 
+                            }
+                        } 
  
                         
                         
@@ -222,11 +233,11 @@
 
                 });
             }
-            
+            console.log(emptyObject)
 //            below I am creating the popup with the capacity numbers for the filter area
             for (var key in emptyObject) {
                 popUpText += "<b>" + key + " Capacity: </b>"
-                popUpText += emptyObject[key].capacity.toLocaleString() + " MW<br>"
+                popUpText += emptyObject[key].toLocaleString() + " MW<br>"
             }
             otherCircle.bindPopup("Generation capacity within this filter: <br>" + popUpText
 //                                  the commented out lines below are the old popup solution
@@ -235,7 +246,7 @@
 //                                  + "<b>Wind Capacity: </b>" + windCapacity.toLocaleString()
 //                                  + " MW<br>" + "<b>Solar Capacity: </b>" + solarCapacity.toLocaleString()
 //                                  + " MW<br>" + "<b>Nuclear Capacity: </b>" + nuclearCapacity.toLocaleString() + " MW"
-                                    );
+                                    ).openPopup();
             });
         
 
